@@ -1,0 +1,228 @@
+:root {
+  --primary-bg-color: #242629;
+  --secondary-bg-color: #323335;
+  --card-bg-color: #4a4a4a;
+
+  --primary-text-color: #d8dee9;
+  --secondary-text-color: #e5e9f0;
+  --card-text-color: #eceff4;
+  --dimmed-text-color: #eceff4b2;
+  --dimmed-bg-color: #28292caf;
+  color: #ffffff00;
+  --nord0: #2e3440;
+  --nord1: #3b4252;
+  --nord2: #434c5e;
+  --nord3: #4c566a;
+  --nord4: #d8dee9;
+  --nord5: #e5e9f0;
+  --nord6: #eceff4;
+  --nord7: #8fbcbb;
+  --nord8: #88c0d0;
+  --nord9: #81a1c1;
+  --nord10: #5e81ac;
+  --nord11: rgb(191, 97, 106);
+  --nord12: #d08770;
+  --nord13: #ebcb8b;
+  --nord14: #a3be8c;
+  --nord15: #b48ead;
+  --activetext: #256ec6;
+
+  --mob-nev: 60px;
+  --mob-brand-img: 30px;
+  --mob-nev-ul-width: 100%;
+  --mob-nev-ul-padding: 0px;
+  --mob-nev-ul-marginleft: 0px;
+  --mob-nev-ul-margin: auto;
+  --mob-nev-ul-h3: none;
+  --mob-nev-ul-a-marginleft: 15px;
+  --mob-nev-ul-a-span: none;
+  --mob-nev-ul-i-marginright: 0px;
+  --mob-hrs: block;
+}
+
+.overview1 {
+  display: flex;
+  justify-content: space-between;
+}
+
+.leftoverview{
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.livebadges {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 10px;
+  gap: 10px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.livebadge {
+  background-color: var(--card-bg-color);
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 10px;
+  height: 100px;
+  position: relative;
+  overflow: hidden;
+}
+
+.livebadge .datablock .value {
+  font-size: 20px;
+  color: var(--card-text-color);
+}
+
+.livebadge .datablock .item {
+  font-size: 15px;
+  color: var(--dimmed-text-color);
+}
+
+.livebadge .iconblock {
+  font-size: 50px;
+  color: var(--dimmed-text-color);
+  width: 60px;
+  height: 60px;
+  position: absolute;
+  bottom: -10px;
+  right: -15px;
+  opacity: 0.3;
+}
+
+.livebadge .iconblock img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.cpu-data {
+  width: 50%;
+  height: 330px;
+  background: var(--dimmed-bg-color);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.cpu-data .otherdata {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.cpu-data .otherdata div{
+    height: 50px;
+    background-color: var(--card-bg-color);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.cpu-data .otherdata div span:nth-child(2){
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: var(--dimmed-text-color);
+}
+
+.cpu-data .barchart{
+    width: calc(100% - 100px);
+    height: 100%;
+    margin-bottom: 10px;
+    border-bottom: 1px solid var(--dimmed-text-color);
+    border-left: 1px solid var(--dimmed-text-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    align-items: flex-start;
+    margin-left: 50px;
+
+}
+
+.cpu-data .barchart .core{
+    height: 30px;
+    border: 2px solid var(--activetext);
+    border-left: none;
+    position: relative;
+
+}
+
+.cpu-data .barchart .core span:first-child{
+    position: absolute;
+    right: calc(100% + 5px);
+    top:5px;
+    white-space: nowrap;
+}
+.cpu-data .barchart .core span:nth-child(2){
+    position: absolute;
+    left: calc(100% + 10px);
+    top:2px;
+}
+
+
+
+@media only screen and (max-width: 720px) {
+    .overview1{
+        flex-direction: column;
+    }
+
+    .leftoverview{
+        width: 100%;
+    }
+
+    .cpu-data{
+        width: 100%;
+        max-width: 400px;
+    }
+}
+
+
+.overview2{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+  padding: 10px;
+}
+.overview2 .systeminfo{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.systeminfo table{
+  border-spacing: 15px 10px;
+}
+
+.systeminfo table tr td:first-child{
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+.systeminfo .hardware-data table tr{
+  display: none;
+}
+
+.systeminfo .hardware-data table .vis{
+  display: table-row;
+}
+
+
+.showmore{
+  color: #256ec6;
+  cursor: pointer;
+  text-align: center;
+  user-select: none;
+}
+
+@media only screen and (max-width: 1000px) {
+  .overview2 .systeminfo{
+    flex-direction: column;
+  }
+}
+

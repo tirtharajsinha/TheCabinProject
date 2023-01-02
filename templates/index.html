@@ -1,0 +1,193 @@
+{% extends "base.html" %}
+{% block title %}Overview{% endblock %}
+{% block body %}
+<div class="centerbox">
+    <div class="overview1">
+        <div class="leftoverview">
+            <div class="livebadges">
+                <div class="livebadge">
+                    <div class="datablock">
+                        <div class="value">30 °C</div>
+                        <div class="item">Temperature</div>
+                    </div>
+                    <div class="iconblock"><i class="fal fa-temperature-high"></i></div>
+                </div>
+                <div class="livebadge">
+                    <div class="datablock" id="data-mem">
+                        <div class="value">1.07 Gib</div>
+                        <div class="total">of 3.76 Gib</div>
+                        <div class="item">Memory</div>
+                    </div>
+                    <div class="iconblock"><i class="fal fa-memory"></i></div>
+                </div>
+                <div class="livebadge">
+                    <div class="datablock" id="data-freq">
+                        <div class="value">800 MHz</div>
+                        <div class="item">CPU frequency</div>
+                    </div>
+                    <div class="iconblock"><img src="static/cpu.png" alt=""></div>
+                </div>
+
+                <div class="livebadge">
+                    <div class="datablock" id="data-usage">
+                        <div class="value">37.5%</div>
+                        <div class="item">CPU Usage</div>
+                    </div>
+                    <div class="iconblock"><i class="fal fa-server"></i></div>
+                </div>
+                <div class="livebadge">
+                    <div class="datablock" id="data-sto">
+                        <div class="value">25 Gib</div>
+                        <div class="item">Storage</div>
+                    </div>
+                    <div class="iconblock"><i class="fal fa-database"></i></div>
+                </div>
+                <div class="livebadge">
+                    <div class="datablock" id="data-up">
+                        <div class="value">10 min</div>
+                        <div class="item">Uptime</div>
+                    </div>
+                    <div class="iconblock"><i class="fal fa-clock"></i></div>
+                </div>
+                <div class="livebadge">
+                    <div class="datablock" id="data-service">
+                        <div class="value">20</div>
+                        <div class="item">Total Services</div>
+                    </div>
+                    <div class="iconblock"><i class="fal fa-tasks"></i></div>
+                </div>
+                <div class="livebadge">
+                    <div class="datablock" id="data-fail">
+                        <div class="value">1</div>
+                        <div class="item">Failed Services</div>
+                    </div>
+                    <div class="iconblock"><i class="fas fa-exclamation-triangle"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="cpu-data">
+            <div class="barchart">
+                <div class="core1 core" style="width:100%"><span>Core 1</span><span>100%</span></div>
+                <div class="core2 core" style="width: 70%;"><span>Core 2</span><span>70%</span></div>
+                <div class="core3 core" style="width: 30%;"><span>Core 3</span><span>30%</span></div>
+                <div class="core4 core" style="width: 50%;"><span>Core 4</span><span>50%</span></div>
+                <div class="allcore core" style="width: 37%;"><span>Avg</span><span>37.5%</span></div>
+            </div>
+        </div>
+
+    </div>
+    <div class="overview2">
+        <div class="systeminfo">
+            <div class="hardware-data">
+                <table>
+                    <h2>Hardware Info</h2>
+                    <tr class="vis">
+                        <td>Name</td>
+                        <td>Raspberry pi 4 Model B</td>
+                    </tr>
+                    <tr class="vis">
+                        <td>SOC</td>
+                        <td>Broadcom BCM2711, Quad core Cortex-A72</td>
+                    </tr>
+                    <tr class="vis">
+                        <td>Core</td>
+                        <td>4</td>
+                    </tr>
+                    <tr class="vis">
+                        <td>Architecture</td>
+                        <td>aarch64</td>
+                    </tr>
+                    <tr class="vis">
+                        <td>CPU Frequency</td>
+                        <td>1.5GHz</td>
+                    </tr>
+                    <tr class="vis">
+                        <td>GPU</td>
+                        <td>Broadcom VideoCore VI</td>
+                    </tr>
+                    <tr>
+                        <td>Overclocking</td>
+                        <td>Yes, Up to 2.1 GHz</td>
+                    </tr>
+                    <tr>
+                        <td>Ram</td>
+                        <td>4GB LPDDR4-3200 SDRAM</td>
+                    </tr>
+                    <tr>
+                        <td>WLAN</td>
+                        <td>2.4 GHz and 5.0 GHz IEEE 802.11b/g/n/ac</td>
+                    </tr>
+                    <tr>
+                        <td>Etharnet</td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td>USB</td>
+                        <td>2 X USB 3.0 and 2 X USB 2.0</td>
+                    </tr>
+                    <tr>
+                        <td>GPIO</td>
+                        <td>Standard 40 pin GPIO</td>
+                    </tr>
+                    <tr>
+                        <td>HDMI</td>
+                        <td>2 X Micro HDMI</td>
+                    </tr>
+                    <tr>
+                        <td>CSI Port</td>
+                        <td>2-lane MIPI</td>
+                    </tr>
+                    <tr>
+                        <td>DSI Port</td>
+                        <td>2-lane MIPI</td>
+                    </tr>
+                    <tr>
+                        <td>AVI</td>
+                        <td>4-pole stereo audio and composite video port</td>
+                    </tr>
+                    <tr>
+                        <td>SD Card Slot</td>
+                        <td>Yes, for OS and storage</td>
+                    </tr>
+                    <tr>
+                        <td>Power Input</td>
+                        <td>USB C jack</td>
+                    </tr>
+
+                </table>
+                <p class="showmore">Show More</p>
+            </div>
+            <div class="software-data">
+                <table>
+                    <h2>Software Info</h2>
+                    <tr>
+                        <td>OS</td>
+                        <td>Debian GNU/Linux 11 (bullseye)</td>
+                    </tr>
+                    <tr>
+                        <td>DE</td>
+                        <td>PIXEL</td>
+                    </tr>
+                    <tr>
+                        <td>Packet Manager</td>
+                        <td>APT</td>
+                    </tr>
+                    <tr>
+                        <td>Kernal</td>
+                        <td>5.15.76-v8+</td>
+                    </tr>
+                    <tr>
+                        <td>Hostname</td>
+                        <td>raspberrypi</td>
+                    </tr>
+                    <tr>
+                        <td>Shell</td>
+                        <td>bash 5.1.4</td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

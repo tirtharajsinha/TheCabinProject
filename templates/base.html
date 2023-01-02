@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <link rel="shortcut icon" href="static/favicon.png" type="image/png">
+    <script src="https://code.jquery.com/jquery-3.6.1.js"
+        integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+    <link rel='stylesheet' href='https://www.w3schools.com/w3css/4/w3.css'>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.0.17/dist/js/splide.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.0.17/dist/css/splide.min.css">
+    <link rel="stylesheet" href="static/style.css">
+    <link rel="stylesheet" href="static/loader.css">
+    <link rel="stylesheet" href="static/overview.css">
+
+    <title>{% block title %}{% endblock %} | Cabin</title>
+</head>
+
+<body>
+    <div class="main">
+        <div class="sidebar">
+            <div class="branding">
+                <img id="expandbar" src="static/favicon.png" alt="">
+                <p class="pagename fulld">The Cabin Project</p>
+                <p class="pagetype fulld">Pi Server dashboard</p>
+            </div>
+            <div class="close-nav-btn">
+                <i class="fal fa-chevron-left"></i>
+            </div>
+            <div class="hr"></div>
+            <ul>
+                <h3>DASHBOARD</h3>
+                <a href="" class="active"><i class="fas fa-th-large"></i><span>Overview</span></a>
+
+            </ul>
+            <div class="hrs"></div>
+            <ul>
+                <h3>SYSTEM</h3>
+                <a href=""><i class="fal fa-microchip"></i><span>Hardware</span></a>
+                <a href=""><i class="fal fa-database"></i><span>Storage</span></a>
+                <a href=""><i class="fal fa-wifi"></i><span>Network</span></a>
+                <a href=""><i class="fal fa-user-alt"></i><span>Accounts</span></a>
+                <a href=""><i class="fal fa-industry-alt"></i><span>Services</span></a>
+                <a href=""><i class="fal fa-terminal"></i><span>Runner</span></a>
+            </ul>
+            <div class="hrs"></div>
+            <ul class="highlight-block">
+                <h3>APPS</h3>
+                <a href=""><i class="fal fa-camera-movie"></i><span>Jellyfin</span></a>
+                <a href=""><i class="fal fa-plane"></i><span>Cockpit</span></a>
+                <a href=""><i class="fal fa-router"></i><span>Netcheck</span></a>
+                <a href=""><i class="fal fa-house"></i><span>Cabin</span></a>
+                <a href=""><i class="fal fa-bolt"></i><span>PowerNotify</span></a>
+            </ul>
+            <ul>
+                <h3>OTHERS</h3>
+                <a href=""><i class="fas fa-clipboard"></i><span>About</span></a>
+                <a href=""><i class="fal fa-cog"></i><span>Settings</span></a>
+
+            </ul>
+            <br>
+
+        </div>
+        <div class="container">
+            <div class="topbar">
+                <div class="topbarbox">
+                    <a href="#" class="pageh fulld">Hostname</a>
+                    <div class="sep fulld"></div>
+                </div>
+                <div class="topbarbox">
+                    <div class="space fulld"></div>
+                    <div class="sep fulld"></div>
+                    <i class="fal fa-bell"></i>
+                    <div class="space"></div>
+                    <i class="fal fa-moon" id="theme-toggle"></i>
+                    <div class="sep"></div>
+                    <i class="fab fa-raspberry-pi" id="control-center-btn"><span
+                            class="fulld username">username</span></i>
+                </div>
+            </div>
+            <div class="control-center supercard">
+                <img src="static/Avatar.png" alt="">
+                <h4>Tirtharaj Sinha</h4>
+                <h5>username@hostname</h5>
+                <div class="settings">
+                    <div class="st-box" id="st-btn1">
+                        <div class="st-btn">
+                            <i class="fal fa-sign-out"></i>
+                        </div>
+                        <div class="st-label">Log Out</div>
+                    </div>
+                    <div class="st-box" id="st-btn2">
+                        <div class="st-btn">
+                            <i class="fal fa-power-off"></i>
+                        </div>
+                        <div class="st-label">Poweroff</div>
+                    </div>
+                    <div class="st-box" id="st-btn3">
+                        <div class="st-btn">
+                            <i class="fal fa-redo"></i>
+                        </div>
+                        <div class="st-label">Reboot</div>
+                    </div>
+                </div>
+            </div>
+            <div class="context">
+                {% block body %}{% endblock %}
+            </div>
+        </div>
+    </div>
+
+    <div class="theme-loader">
+        <div class="exp-box"></div>
+        <div class="ani-box">
+            <div class="half-circle"></div>
+        </div>
+    </div>
+
+    <div class="page-loader" id="loader">
+        <div class="loader">
+            <div>
+                <div></div>
+            </div>
+            <div>
+                <div></div>
+            </div>
+            <div>
+                <div></div>
+            </div>
+            <div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script>
+        $(window).on('load', function () {
+            setTimeout(removeLoader, 0); //wait for page load PLUS two seconds.
+        });
+        function removeLoader() {
+            $("#loader").fadeOut(500, function () {
+                // fadeOut complete. Remove the loading div
+                $("#loader").remove(); //makes page more lightweight 
+            });
+        }
+    </script>
+    <script src="static/fontawasome5.15-pro.js"></script>
+    <!-- choose one -->
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="static/chart.js"></script>
+    <script src="static/index.js"></script>
+    <script>
+        feather.replace()
+    </script>
+
+</body>
+
+</html>
