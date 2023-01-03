@@ -1,11 +1,13 @@
 let nev = false;
-let curhardfull = false;
+
 let text_color = "#d8dee9";
 current_theme = localStorage.getItem("current-theme");
 if (current_theme == null) {
   localStorage.setItem("current-theme", "dark");
   current_theme = "dark";
 }
+
+
 
 if (document.querySelector(".sidebar").clientWidth <= 60) {
   document.getElementById("expandbar").src = "right_arrow.png";
@@ -194,23 +196,4 @@ function show_loader() {
   }, 1200);
 }
 
-document.querySelector(".showmore").addEventListener("click", (e) => {
-  if (curhardfull == false) {
-    let alltr = document.querySelectorAll(".hardware-data tr");
-    for (var i = 6; i < alltr.length; i++) {
-      alltr[i].style.display = "table-row";
-    }
-    document.querySelector(".showmore").innerHTML="Show Less";
-    curhardfull=true;
-  }
-  else{
-    let alltr = document.querySelectorAll(".hardware-data tr");
-    for (var i = 6; i < alltr.length; i++) {
-      alltr[i].style.display = "none";
-    }
-    document.querySelector(".showmore").innerHTML="Show more";
-    curhardfull=false;
-  }
 
-  console.log(alltr.length);
-});

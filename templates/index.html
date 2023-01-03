@@ -1,4 +1,7 @@
 {% extends "base.html" %}
+{%block style %}
+<link rel="stylesheet" href="static/overview.css">
+{% endblock %}
 {% block title %}Overview{% endblock %}
 {% block body %}
 <div class="centerbox">
@@ -6,7 +9,7 @@
         <div class="leftoverview">
             <div class="livebadges">
                 <div class="livebadge">
-                    <div class="datablock">
+                    <div class="datablock" id="data-temp">
                         <div class="value">30 °C</div>
                         <div class="item">Temperature</div>
                     </div>
@@ -190,4 +193,5 @@
         </div>
     </div>
 </div>
+<script src="static/overview.js"></script>
 {% endblock %}
