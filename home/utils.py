@@ -86,3 +86,14 @@ def getCpuUsage():
     for i,data in enumerate(cpudata):
         cdata["core"+str(i+1)]=data
     return cdata
+
+def systeminfo():
+    hostname=os.popen("hostname").read()
+    username=os.popen("echo $USER").read()
+
+    data={
+        "hostname":hostname,
+        "username":username
+    }
+
+    return data

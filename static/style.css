@@ -342,6 +342,7 @@ body {
   padding-top: 7px;
   padding-bottom: 7px;
   transition: all 0.3s ease;
+  user-select: none;
 }
 
 .size-16{
@@ -837,3 +838,122 @@ body {
   }
 }
 
+
+.reconnect{
+  display: none;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--primary-bg-color);
+}
+
+
+.reconnect .reconbox{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content:space-around;
+  width: 250px;
+  height: 100px;
+}
+.reconnect .reconbox .reconmsg{
+  color: var(--nord12);
+  font-size: 20px;
+}
+.reconnect .reconbox .reconbtn{
+  width: 100%;
+  padding: 10px;
+  letter-spacing: 1px;
+  background-color: var(--nord10);
+  color: var(--primary-bg-color);
+  text-align: center;
+  border-radius: 5px;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+}
+
+.reconnect .reconbox .reconbtn:active{
+  opacity: 0.6;
+}
+
+.passbox{
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.381);
+  backdrop-filter: blur(5px);
+  z-index: 10;
+}
+
+.passinnerbox{
+  width: 40%;
+  min-width: 250px;
+  background-color: var(--card-bg-color);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.passbox .passdata{
+  width: 90%;
+  background-color: var(--primary-bg-color);
+  border-radius: 5px;
+  padding: 7px;
+  min-width: 200px;
+  color: var(--card-text-color);
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: 2px solid transparent;
+  outline: none;
+}
+
+.passdata:focus{
+  outline: none;
+  border: 2px solid var(--activetext);
+  box-shadow: 0 4px 8px 0 rgba(37, 109, 198, 0.2), 0 6px 20px 0 rgba(37, 109, 198, 0.19);
+} 
+
+.passbox .data-command{
+  color: var(--card-text-color);
+}
+
+.passbox .passbtns{
+  width: 90%;
+  min-width: 200px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.passbtns div{
+  padding: 10px;
+  letter-spacing: 1px;
+  color: var(--nord0);
+  text-align: center;
+  border-radius: 5px;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+}
+
+.passbtns .passbtn{
+  background-color: var(--nord14);
+}
+
+.passbtns .cancelbtn{
+  background-color: var(--nord12);
+}

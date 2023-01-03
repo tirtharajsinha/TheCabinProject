@@ -7,6 +7,7 @@ from datetime import datetime
 from django.contrib import messages
 from django.http import JsonResponse
 from .utils import *
+import os
 
 # superuser username-cabin /  passward-cabin
 # Create your views here.
@@ -16,7 +17,32 @@ from .utils import *
 def index(request):
     return render(request, "index.html")
 
+def check(request):
+    return JsonResponse({"status":"connected"})
 
+def poweroff(request):
+    if request.method == "POST":
+        sudopass = request.POST.get("sudopass")
+        print(sudopass)
+        command='echo "{}" | sudo poweroff'.format(sudopass)
+        #feed=os.popen(command).read()
+        #print(feed)
+    return JsonResponse({"status":"connected"})
+
+def reboot(request):
+    if request.method == "POST":
+        sudopass = request.POST.get("sudopass")
+        print(sudopass)
+        command='echo "{}" | sudo reboot'.format(sudopass)
+        #feed=os.popen(command).read()
+        #print(feed)
+    return JsonResponse({"status":"connected"})
+
+def mainsysteminfo(request):
+    try:
+        return JsonResponse(systeminfo())
+    except Exception as e:
+        return JsonResponse({"status":"error","log":str(e)})
 
 def overviewapi1(request):
     try:
@@ -31,7 +57,7 @@ def overviewapi2(request):
         return JsonResponse({"status":"error","log":str(e)})
 
 def overviewapi3(request):
-    print(getCpuUsage())
+    # print(getCpuUsage())
     try:
         return JsonResponse(getCpuUsage())
     except Exception as e:

@@ -10,7 +10,8 @@
         integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
     <link rel='stylesheet' href='https://www.w3schools.com/w3css/4/w3.css'>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.js"
+        integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/highcharts-more.js"></script>
     <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
@@ -74,7 +75,7 @@
         <div class="container">
             <div class="topbar">
                 <div class="topbarbox">
-                    <a href="#" class="pageh fulld">Hostname</a>
+                    <a href="#" class="pageh fulld data-hostname">Hostname</a>
                     <div class="sep fulld"></div>
                 </div>
                 <div class="topbarbox">
@@ -85,13 +86,13 @@
                     <i class="fal fa-moon" id="theme-toggle"></i>
                     <div class="sep"></div>
                     <i class="fab fa-raspberry-pi" id="control-center-btn"><span
-                            class="fulld username">username</span></i>
+                            class="fulld username data-username">username</span></i>
                 </div>
             </div>
             <div class="control-center supercard">
                 <img src="static/Avatar.png" alt="">
                 <h4>Tirtharaj Sinha</h4>
-                <h5>username@hostname</h5>
+                <h5><span class="data-username">username</span>@<span class="data-hostname">hostname</span></h5>
                 <div class="settings">
                     <div class="st-box" id="st-btn1">
                         <div class="st-btn">
@@ -99,13 +100,13 @@
                         </div>
                         <div class="st-label">Log Out</div>
                     </div>
-                    <div class="st-box" id="st-btn2">
+                    <div class="st-box" id="st-btn2" id="com-poweroff" onclick="poweroff()">
                         <div class="st-btn">
                             <i class="fal fa-power-off"></i>
                         </div>
                         <div class="st-label">Poweroff</div>
                     </div>
-                    <div class="st-box" id="st-btn3">
+                    <div class="st-box" id="st-btn3" id="com-reboot" onclick="reboot()">
                         <div class="st-btn">
                             <i class="fal fa-redo"></i>
                         </div>
@@ -118,6 +119,23 @@
             </div>
         </div>
     </div>
+    <div class="reconnect">
+        <div class="reconbox">
+            <p class="reconmsg">Server Disconnected</p>
+            <div class="reconbtn">Reconnect</div>
+        </div>
+    </div>
+
+    <div class="passbox">
+        <div class="passinnerbox">
+            <div class="data-command"></div>
+            <input type="password" class="passdata" id="passdata" placeholder="Enter password for the user">
+            <div class="passbtns">
+                <div class="passbtn" data-action="none">Continue</div>
+                <div class="cancelbtn">Cancel</div>
+            </div>
+        </div>
+    </div>
 
     <div class="theme-loader">
         <div class="exp-box"></div>
@@ -125,7 +143,7 @@
             <div class="half-circle"></div>
         </div>
     </div>
-
+    <input type='hidden' name='csrfmiddlewaretoken' value='{% csrf_token %}' />
     <div class="page-loader" id="loader">
         <div class="loader">
             <div>
@@ -163,9 +181,6 @@
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <script src="static/chart.js"></script>
     <script src="static/index.js"></script>
-    <script>
-        feather.replace()
-    </script>
 
 </body>
 

@@ -197,3 +197,93 @@ function show_loader() {
 }
 
 
+$.get("/api4", function (data) {
+  // let mydata=JSON.parse(data);
+  console.log(data);
+  let hostname = data["hostname"]
+  let username = data["username"]
+
+  let allhost = document.querySelectorAll(".data-hostname");
+  for (var i = 0; i < allhost.length; i++) {
+    allhost[i].innerHTML = hostname;
+  }
+
+  let alluser = document.querySelectorAll(".data-username");
+  for (var i = 0; i < alluser.length; i++) {
+    alluser[i].innerHTML = username;
+  }
+
+
+});
+
+document.querySelector(".reconbtn").addEventListener("click", (e) => {
+  location.reload();
+})
+
+setInterval(() => {
+  try{
+    $.get("/check", function (data) {
+    }).fail(function () {
+      
+    })
+  }
+  catch{
+    document.querySelector(".reconnect").style.display = "flex";
+  }
+}, 1000);
+
+function reboot(){
+  document.querySelector(".passbox .data-command").innerHTML = "Enter sudo password to reboot";
+  document.querySelector(".passbox .passbtn").setAttribute('data-action',"reboot");
+  document.querySelector(".passbox").style.display = "flex";
+}
+
+function poweroff(){
+  document.querySelector(".passbox .data-command").innerHTML = "Enter sudo password to poweroff";
+  document.querySelector(".passbox .passbtn").setAttribute('data-action',"poweroff");
+  document.querySelector(".passbox").style.display = "flex";
+}
+
+
+document.querySelector(".cancelbtn").addEventListener("click", (e) => {
+  document.querySelector(".passbox").style.display = "none";
+  document.querySelector(".passdata").value = "";
+})
+$.ajaxSetup({ 
+  beforeSend: function(xhr, settings) {
+      function getCookie(name) {
+          var cookieValue = null;
+          if (document.cookie && document.cookie != '') {
+              var cookies = document.cookie.split(';');
+              for (var i = 0; i < cookies.length; i++) {
+                  var cookie = jQuery.trim(cookies[i]);
+                  // Does this cookie string begin with the name we want?
+                  if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                      cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                      break;
+                  }
+              }
+          }
+          return cookieValue;
+      }
+      if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+          // Only send the token to relative URLs i.e. locally.
+          xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+      }
+  } 
+});
+
+document.querySelector(".passbtn").addEventListener("click", (e) => {
+  let pass = document.querySelector(".passdata").value;
+  console.log(pass);
+  let action=document.querySelector(".passbox .passbtn").getAttribute('data-action');
+  let token = $("#change_password-form").find('input[name=csrfmiddlewaretoken]').val()
+  document.querySelector(".passdata").value = "";
+  document.querySelector(".passbox").style.display = "none";
+  $.post(`/${action}`,
+    {
+      "sudopass": pass,
+      "csrfmiddlewaretoken": token
+    });
+
+})
