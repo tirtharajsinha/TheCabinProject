@@ -1,0 +1,7 @@
+asgiref==3.6.0
+backports.zoneinfo==0.2.1
+Django==4.1.4
+numpy==1.24.0
+psutil==5.9.4
+sqlparse==0.4.3
+tzdata==2022.7
