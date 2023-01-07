@@ -10,7 +10,7 @@ if (current_theme == null) {
 
 
 if (document.querySelector(".sidebar").clientWidth <= 60) {
-  document.getElementById("expandbar").src = "right_arrow.png";
+  document.getElementById("expandbar").src = "static/right_arrow.png";
   if (current_theme == "dark") {
     document.getElementById("expandbar").style.filter = "invert(180)";
   }
@@ -48,7 +48,7 @@ function open_nev() {
   var r = document.querySelector(":root");
   r.style.setProperty("--mob-nev", "250px");
 
-  document.getElementById("expandbar").src = "favicon.png";
+  document.getElementById("expandbar").src = "static/favicon.png";
   document.getElementById("expandbar").style.filter = "invert(0)";
   document.querySelector(".pagename").classList.toggle("fulld");
   document.querySelector(".pagetype").classList.toggle("fulld");
@@ -71,7 +71,7 @@ function open_nev() {
 function close_nev() {
   nev = false;
 
-  document.getElementById("expandbar").src = "right_arrow.png";
+  document.getElementById("expandbar").src = "static/right_arrow.png";
   if (current_theme == "dark") {
     document.getElementById("expandbar").style.filter = "invert(180)";
   }
