@@ -47,7 +47,7 @@ def mainsysteminfo1():
     elif hours>0:
         up="{}:{} hrs".format(int(hours),int(minutes))
     else:
-        up="{} min".format(min)
+        up="{} min".format(minutes)
 
     data={
         "temp":temp,
