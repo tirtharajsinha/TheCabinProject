@@ -17,48 +17,31 @@ import os
 def index(request):
     return render(request, "index.html")
 
+
 def check(request):
-    return JsonResponse({"status":"connected"})
+    return JsonResponse({"status": "connected"})
+
 
 def poweroff(request):
     if request.method == "POST":
         sudopass = request.POST.get("sudopass")
         print(sudopass)
-        command='echo "{}" | sudo poweroff'.format(sudopass)
-        #feed=os.popen(command).read()
-        #print(feed)
-    return JsonResponse({"status":"connected"})
+        command = 'echo "{}" | sudo poweroff'.format(sudopass)
+        # feed=os.popen(command).read()
+        # print(feed)
+    return JsonResponse({"status": "connected"})
+
 
 def reboot(request):
     if request.method == "POST":
         sudopass = request.POST.get("sudopass")
         print(sudopass)
-        command='echo "{}" | sudo reboot'.format(sudopass)
-        #feed=os.popen(command).read()
-        #print(feed)
-    return JsonResponse({"status":"connected"})
+        command = 'echo "{}" | sudo reboot'.format(sudopass)
+        # feed=os.popen(command).read()
+        # print(feed)
+    return JsonResponse({"status": "connected"})
 
-def mainsysteminfo(request):
-    try:
-        return JsonResponse(systeminfo())
-    except Exception as e:
-        return JsonResponse({"status":"error","log":str(e)})
 
-def overviewapi1(request):
-    try:
-        return JsonResponse(mainsysteminfo1())
-    except Exception as e:
-        return JsonResponse({"status":"error","log":str(e)})
-
-def overviewapi2(request):
-    try:
-        return JsonResponse(mainsysteminfo2())
-    except Exception as e:
-        return JsonResponse({"status":"error","log":str(e)})
-
-def overviewapi3(request):
-    # print(getCpuUsage())
-    try:
-        return JsonResponse(getCpuUsage())
-    except Exception as e:
-        return JsonResponse({"status":"error","log":str(e)})
+def api1(request):
+    data = pidata()
+    return JsonResponse({"data": data})

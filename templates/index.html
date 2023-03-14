@@ -1,197 +1,340 @@
-{% extends "base.html" %}
-{%block style %}
-<link rel="stylesheet" href="static/overview.css">
-{% endblock %}
-{% block title %}Overview{% endblock %}
-{% block body %}
-<div class="centerbox">
-    <div class="overview1">
-        <div class="leftoverview">
-            <div class="livebadges">
-                <div class="livebadge">
-                    <div class="datablock" id="data-temp">
-                        <div class="value">30 °C</div>
-                        <div class="item">Temperature</div>
-                    </div>
-                    <div class="iconblock"><i class="fal fa-temperature-high"></i></div>
-                </div>
-                <div class="livebadge">
-                    <div class="datablock" id="data-mem">
-                        <div class="value">1.07 Gib</div>
-                        <div class="total">of 3.76 Gib</div>
-                        <div class="item">Memory</div>
-                    </div>
-                    <div class="iconblock"><i class="fal fa-memory"></i></div>
-                </div>
-                <div class="livebadge">
-                    <div class="datablock" id="data-freq">
-                        <div class="value">800 MHz</div>
-                        <div class="item">CPU frequency</div>
-                    </div>
-                    <div class="iconblock"><img src="static/cpu.png" alt=""></div>
-                </div>
+<!DOCTYPE html>
+<html lang='en'>
+{% load static %}
 
-                <div class="livebadge">
-                    <div class="datablock" id="data-usage">
-                        <div class="value">37.5%</div>
-                        <div class="item">CPU Usage</div>
-                    </div>
-                    <div class="iconblock"><i class="fal fa-server"></i></div>
-                </div>
-                <div class="livebadge">
-                    <div class="datablock" id="data-sto">
-                        <div class="value">25 Gib</div>
-                        <div class="item">Storage</div>
-                    </div>
-                    <div class="iconblock"><i class="fal fa-database"></i></div>
-                </div>
-                <div class="livebadge">
-                    <div class="datablock" id="data-up">
-                        <div class="value">10 min</div>
-                        <div class="item">Uptime</div>
-                    </div>
-                    <div class="iconblock"><i class="fal fa-clock"></i></div>
-                </div>
-                <div class="livebadge">
-                    <div class="datablock" id="data-service">
-                        <div class="value">20</div>
-                        <div class="item">Total Services</div>
-                    </div>
-                    <div class="iconblock"><i class="fal fa-tasks"></i></div>
-                </div>
-                <div class="livebadge">
-                    <div class="datablock" id="data-fail">
-                        <div class="value">1</div>
-                        <div class="item">Failed Services</div>
-                    </div>
-                    <div class="iconblock"><i class="fas fa-exclamation-triangle"></i></div>
-                </div>
+<head>
+    <meta charset='UTF-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <title>The Pi Cabin</title>
+</head>
+
+<body>
+    <div class="topbar">
+        <img src="{% static 'raspberrry_pi_logo.png' %}" class="pi-logo" alt="">
+        <span class="AppName">Raspberry Pi Server</span>
+    </div>
+
+    <div class="overview">
+        <div class="overviewnav">
+            <span class="section-title">Overview</span>
+            <div class="menu">
+                <div class="item-btn"><i class="far fa-cog"></i></div>
+                <div class="item-btn"><i class="far fa-folder"></i></div>
+                <div class="item-btn"><i class="far fa-th-large"></i></div>
+                <div class="item-btn"><i class="far fa-moon"></i></div>
+                <div class="item-btn"><i class="far fa-redo-alt"></i></div>
             </div>
         </div>
-        <div class="cpu-data">
-            <div class="barchart">
-                <div class="core1 core" style="width:100%"><span>Core 1</span><span class="cdata">100%</span></div>
-                <div class="core2 core" style="width: 70%;"><span>Core 2</span><span class="cdata">70%</span></div>
-                <div class="core3 core" style="width: 30%;"><span>Core 3</span><span class="cdata">30%</span></div>
-                <div class="core4 core" style="width: 50%;"><span>Core 4</span><span class="cdata">50%</span></div>
-                <div class="allcore core" style="width: 37%;"><span>Avg</span><span class="cdata">37.5%</span></div>
+        <div class="container">
+
+            <!-- First column -->
+            <div class="column">
+                <div class="netsection data-section">
+                    <div class="sectionName">Network Stats</div>
+                    <div class="card-box">
+                        <div class="row">
+                            <div class="netid card">
+                                <div class="card-data">
+                                    <p class="card-label">Network Name</p>
+                                    <p class="card-value">SSID</p>
+                                </div>
+                                <div class="card-icon">
+                                    <i class="far fa-network-wired"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="hostname card">
+                                <div class="card-data">
+                                    <p class="card-label">HOSTNAME</p>
+                                    <p class="card-value">192.168.0.190</p>
+                                </div>
+                                <div class="card-icon">
+                                    <!-- <i class="far fa-wifi"></i> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="allservice card">
+                                <div class="card-data">
+                                    <p class="card-label">Active Services</p>
+                                    <p class="card-value">179</p>
+                                </div>
+                                <div class="card-icon">
+                                    <i class="fas fa-cubes"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+
+
+            <!-- second column -->
+            <div class="column">
+                <div class="cpusection data-section">
+                    <div class="sectionName">CPU Stats</div>
+                    <div class="card-box">
+                        <div class="row">
+                            <div class="cpuutil pie-chart">
+                                <div class="cpuutil-chart allchart" data-percent="0" data-scale-color="#00000000">
+                                    <div class="percent">
+                                        <span></span>
+                                    </div>
+                                </div>
+                                <div class="card-label">CPU Utilization</div>
+                            </div>
+                            <div class="cpufreq card">
+                                <div class="card-data">
+                                    <p class="card-label">CPU Frequency</p>
+                                    <p class="card-value">600 MHz</p>
+                                </div>
+                                <div class="card-icon">
+                                    <i class="far fa-chart-bar"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="cpucount card">
+                                <div class="card-data">
+                                    <p class="card-label">CPU Count</p>
+                                    <p class="card-value">4</p>
+                                </div>
+                                <div class="card-icon">
+                                    <i class="far fa-microchip"></i>
+                                </div>
+                            </div>
+                            <div class="cputemp card">
+                                <div class="card-data">
+                                    <p class="card-label">Max Frequency</p>
+                                    <p class="card-value">1500 MHz</p>
+                                </div>
+                                <div class="card-icon">
+                                    <i class="far fa-tachometer-fastest"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="fanon card">
+                                <div class="card-data">
+                                    <p class="card-label">Fan</p>
+                                    <p class="card-value">ON</p>
+                                </div>
+                                <div class="card-icon">
+                                    <i class="far fa-fan"></i>
+                                </div>
+                            </div>
+                            <div class="cputemp card">
+                                <div class="card-data">
+                                    <p class="card-label">Temperature</p>
+                                    <p class="card-value">30°C</p>
+                                </div>
+                                <div class="card-icon">
+                                    <i class="far fa-temperature-high"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Third Column -->
+            <div class="column">
+                <div class="disksection data-section">
+                    <div class="sectionName">Disks Stats</div>
+                    <div class="card-box">
+                        <div class="row">
+                            <div class="diskutil pie-chart">
+                                <div class="diskutil-chart allchart" data-percent="0" data-scale-color="#00000000">
+                                    <div class="percent">
+                                        <span></span>
+                                    </div>
+                                </div>
+                                <div class="card-label">Disk Utilization</div>
+                            </div>
+                            <div class="diskused card">
+                                <div class="card-data">
+                                    <p class="card-label">Disk Used</p>
+                                    <p class="card-value">5.7 GB</p>
+                                </div>
+                                <div class="card-icon">
+                                    <i class="far fa-compact-disc"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="disktotal card">
+                                <div class="card-data">
+                                    <p class="card-label">Disk Available</p>
+                                    <p class="card-value">24 GB</p>
+                                </div>
+                                <div class="card-icon">
+                                    <i class="far fa-disc-drive"></i>
+                                </div>
+                            </div>
+                            <div class="memefree card">
+                                <div class="card-data">
+                                    <p class="card-label">Total Disk Space</p>
+                                    <p class="card-value">31 GB</p>
+                                </div>
+                                <div class="card-icon">
+                                    <i class="far fa-save"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="card">
+                                <div class="card-data">
+                                    <p class="card-label">MAIN (Mounted)</p>
+                                    <p class="card-value">24 GB</p>
+                                </div>
+                                <div class="card-icon">
+
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-data">
+                                    <p class="card-label">NEW VOLUME (Unmounted)</p>
+                                    <p class="card-value">500 GB</p>
+                                </div>
+                                <div class="card-icon">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fourth column -->
+            <div class="column">
+                <div class="memsection data-section">
+                    <div class="sectionName">Memory Stats</div>
+                    <div class="card-box">
+                        <div class="row">
+                            <div class="memutil pie-chart">
+                                <div class="memutil-chart allchart" data-percent="0" data-scale-color="#00000000">
+                                    <div class="percent">
+                                        <span></span>
+                                    </div>
+                                </div>
+                                <div class="card-label">Memory Available</div>
+                            </div>
+                            <div class="memused card">
+                                <div class="card-data">
+                                    <p class="card-label">Memory Used</p>
+                                    <p class="card-value">0.9 GB</p>
+                                </div>
+                                <div class="card-icon">
+                                    <i class="far fa-analytics"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="memtotal card">
+                                <div class="card-data">
+                                    <p class="card-label">Total Memory</p>
+                                    <p class="card-value">4 GB</p>
+                                </div>
+                                <div class="card-icon">
+                                    <i class="far fa-memory"></i>
+                                </div>
+                            </div>
+                            <div class="memefree card">
+                                <div class="card-data">
+                                    <p class="card-label">Memory Free</p>
+                                    <p class="card-value">1 GB</p>
+                                </div>
+                                <div class="card-icon">
+                                    <i class="fas fa-wave-triangle"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
+
+
+
+
+
 
     </div>
-    <div class="overview2">
-        <div class="systeminfo">
-            <div class="hardware-data">
-                <table>
-                    <h2>Hardware Info</h2>
-                    <tr class="vis">
-                        <td>Name</td>
-                        <td>Raspberry pi 4 Model B</td>
-                    </tr>
-                    <tr class="vis">
-                        <td>SOC</td>
-                        <td>Broadcom BCM2711, Quad core Cortex-A72</td>
-                    </tr>
-                    <tr class="vis">
-                        <td>Core</td>
-                        <td>4</td>
-                    </tr>
-                    <tr class="vis">
-                        <td>Architecture</td>
-                        <td>aarch64</td>
-                    </tr>
-                    <tr class="vis">
-                        <td>CPU Frequency</td>
-                        <td>1.5GHz</td>
-                    </tr>
-                    <tr class="vis">
-                        <td>GPU</td>
-                        <td>Broadcom VideoCore VI</td>
-                    </tr>
-                    <tr>
-                        <td>Overclocking</td>
-                        <td>Yes, Up to 2.1 GHz</td>
-                    </tr>
-                    <tr>
-                        <td>Ram</td>
-                        <td>4GB LPDDR4-3200 SDRAM</td>
-                    </tr>
-                    <tr>
-                        <td>WLAN</td>
-                        <td>2.4 GHz and 5.0 GHz IEEE 802.11b/g/n/ac</td>
-                    </tr>
-                    <tr>
-                        <td>Etharnet</td>
-                        <td>Yes</td>
-                    </tr>
-                    <tr>
-                        <td>USB</td>
-                        <td>2 X USB 3.0 and 2 X USB 2.0</td>
-                    </tr>
-                    <tr>
-                        <td>GPIO</td>
-                        <td>Standard 40 pin GPIO</td>
-                    </tr>
-                    <tr>
-                        <td>HDMI</td>
-                        <td>2 X Micro HDMI</td>
-                    </tr>
-                    <tr>
-                        <td>CSI Port</td>
-                        <td>2-lane MIPI</td>
-                    </tr>
-                    <tr>
-                        <td>DSI Port</td>
-                        <td>2-lane MIPI</td>
-                    </tr>
-                    <tr>
-                        <td>AVI</td>
-                        <td>4-pole stereo audio and composite video port</td>
-                    </tr>
-                    <tr>
-                        <td>SD Card Slot</td>
-                        <td>Yes, for OS and storage</td>
-                    </tr>
-                    <tr>
-                        <td>Power Input</td>
-                        <td>USB C jack</td>
-                    </tr>
 
-                </table>
-                <p class="showmore">Show More</p>
-            </div>
-            <div class="software-data">
-                <table>
-                    <h2>Software Info</h2>
-                    <tr>
-                        <td>OS</td>
-                        <td>Debian GNU/Linux 11 (bullseye)</td>
-                    </tr>
-                    <tr>
-                        <td>DE</td>
-                        <td>PIXEL</td>
-                    </tr>
-                    <tr>
-                        <td>Packet Manager</td>
-                        <td>APT</td>
-                    </tr>
-                    <tr>
-                        <td>Kernal</td>
-                        <td>5.15.76-v8+</td>
-                    </tr>
-                    <tr>
-                        <td>Hostname</td>
-                        <td>raspberrypi</td>
-                    </tr>
-                    <tr>
-                        <td>Shell</td>
-                        <td>bash 5.1.4</td>
-                    </tr>
 
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
-<script src="static/overview.js"></script>
-{% endblock %}
+    <script src="{% static 'fontawasome5.15-pro.js' %}"></script>
+    <script src="{% static 'plugins/jquery-2.2.4.min.js' %}"></script>
+    <script src="{% static 'plugins/jquery.appear.min.js' %}"></script>
+    <script src="{% static 'plugins/jquery.easypiechart.min.js' %}"></script>
+    <script>
+        let cpuchart = $('.cpuutil-chart').easyPieChart({
+            easing: 'easeOutElastic',
+            delay: 3000,
+            barColor: '#000',
+            trackColor: '#c7c7c7b2',
+            scaleColor: '#fff',
+            scaleLenght: 50,
+            lineWidth: 5,
+            trackWidth: 3,
+            size: 120,
+            lineCap: 'square',
+            animate: { duration: 1, enabled: true },
+            onStop: function (from, to) {
+                this.el.children[0].innerHTML = `<span>${Math.round(to)}</span><span class="psign">%</span>`;
+            },
+        });
+
+        let memchart = $('.memutil-chart').easyPieChart({
+            easing: 'easeOutElastic',
+            delay: 3000,
+            barColor: '#000',
+            trackColor: '#c7c7c7b2',
+            scaleColor: '#fff',
+            scaleLenght: 50,
+            lineWidth: 5,
+            trackWidth: 3,
+            size: 120,
+            lineCap: 'square',
+            animate: { duration: 1, enabled: true },
+            onStop: function (from, to) {
+                this.el.children[0].innerHTML = `<span>${Math.round(to)}</span><span class="psign">%</span>`;
+            },
+        });
+
+        let diskchart = $('.diskutil-chart').easyPieChart({
+            easing: 'easeOutElastic',
+            delay: 3000,
+            barColor: '#000',
+            trackColor: '#c7c7c7b2',
+            scaleColor: '#fff',
+            scaleLenght: 50,
+            lineWidth: 5,
+            trackWidth: 3,
+            size: 120,
+            lineCap: 'square',
+            animate: { duration: 1, enabled: true },
+            onStop: function (from, to) {
+                this.el.children[0].innerHTML = `<span>${Math.round(to)}</span><span class="psign">%</span>`;
+            },
+        });
+
+        $('.cpuutil-chart').data('easyPieChart').update(40)
+        $('.memutil-chart').data('easyPieChart').update(20)
+        $('.diskutil-chart').data('easyPieChart').update(19)
+
+        // window.addEventListener("resize", (e) => {
+        //     if (window.innerWidth < 450) {
+        //         $('.memutil-chart').data('easyPieChart').update(20)
+        //         $('.diskutil-chart').data('easyPieChart').update(19)
+        //     }
+        // });
+
+    </script>
+</body>
+
+</html>
