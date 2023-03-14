@@ -1,0 +1,12 @@
+[Unit]
+Description=The Cabin Project
+After=network.target cabin.socket
+Requires=cabin.socket
+
+[Service]
+Type=simple
+ExecStart=python3 /home/tirthapi/Developer/TheCabinProject/manage.py runserver 0.0.0.0:8001
+User=tirthapi
+
+[Install]
+WantedBy=default.target

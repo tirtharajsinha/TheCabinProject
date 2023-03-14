@@ -15,7 +15,8 @@ import os
 
 
 def index(request):
-    return render(request, "index.html")
+    context = {"pidata": pidata()}
+    return render(request, "index.html", context=context)
 
 
 def check(request):
@@ -44,4 +45,9 @@ def reboot(request):
 
 def api1(request):
     data = pidata()
+    return JsonResponse({"data": data})
+
+
+def api2(request):
+    data = pidataReload()
     return JsonResponse({"data": data})

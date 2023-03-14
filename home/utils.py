@@ -17,9 +17,13 @@ def cpuLoad():
 
 def getCpuFreq():
     freq = subprocess.check_output(
-        ['vcgencmd', 'get_config', 'arm_freq']).decode('utf-8').split("\n")[0]
+        ['vcgencmd', 'measure_clock arm']).decode('utf-8').split("\n")[0]
+    freq = freq.split("=")[1]
+    freq = int(freq)//1000000
+
     maxfreq = subprocess.check_output(
-        ['cat', '/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq']).decode('utf-8').split("\n")[0]
+        ['vcgencmd', 'get_config', 'arm_freq']).decode('utf-8').split("\n")[0]
+    maxfreq = maxfreq.split("=")[1]
 
     return [freq, maxfreq]
 
@@ -46,6 +50,14 @@ def getIp():
     return ip
 
 
+def getSSID():
+    ssid = subprocess.check_output(
+        ['iwgetid', '-r']).decode('utf-8').split("\n")[0]
+    if len(ssid) > 11:
+        ssid = ssid[:11]
+    return ssid
+
+
 def getServiceDetails():
 
     # all services
@@ -66,10 +78,44 @@ def getStorageDevices():
     allsto = subprocess.check_output(['lsblk', '--json']).decode('utf-8')
     allsto = json.loads(allsto)
     allsto = allsto["blockdevices"]
-    sto = 0
+
+    external = 0
+    boot = 0
     for block in allsto:
-        if block["name"] == "mmcblk0":
-            sto = block["size"]
+        for ch in block["children"]:
+            if ch["mountpoint"] == "/boot":
+                esize = ch["size"]
+                if esize[-1] == "M":
+                    boot += float(esize[:-1])/1024
+                elif esize[-1] == "G":
+                    boot += float(esize[:-1])
+            elif ch["mountpoint"] == "/":
+                esize = ch["size"]
+                if esize[-1] == "M":
+                    boot += float(esize[:-1])/1024
+                elif esize[-1] == "G":
+                    boot += float(esize[:-1])
+            else:
+                esize = ch["size"]
+                if esize[-1] == "M":
+                    external += float(esize[:-1])/1024
+                elif esize[-1] == "G":
+                    external += float(esize[:-1])
+
+    if boot < 100:
+        boot = round(boot, 2)
+    else:
+        boot = round(boot, 1)
+
+    if external < 100:
+        external = round(external, 2)
+    else:
+        external = round(external, 1)
+
+    return {
+        "internal": boot,
+        "extarnal": external
+    }
 
 
 def getEachCpuUsage():
@@ -101,15 +147,39 @@ def pidata():
         'cpu_count': psutil.cpu_count(),
         'cpu_freq': cpuFreq[0],
         'max_cpu_freq': cpuFreq[1],
-        'cpu_mem_total': memory.total,
-        'cpu_mem_avail': memory.available,
-        'cpu_mem_used': memory.used,
-        'cpu_mem_free': memory.free,
-        'disk_usage_total': disk.total,
-        'disk_usage_used': disk.used,
-        'disk_usage_free': disk.free,
+        'cpu_mem_total': round(int(memory.total)/(1000)**3, 1),
+        'cpu_mem_avail': round(int(memory.available)/(1000)**3, 1),
+        'cpu_mem_used': round(int(memory.used)/(1000)**3, 1),
+        'cpu_mem_free': round(int(memory.free)/(1000)**3, 1),
+        'cpu_mem_percent': round((memory.available/memory.total)*100, 0),
+        'disk_usage_total': round(int(disk.total)/(1000)**3, 1),
+        'disk_usage_used': round(int(disk.used)/(1000)**3, 1),
+        'disk_usage_free': round(int(disk.free)/(1000)**3, 1),
         'disk_usage_percent': disk.percent,
+        'sensor_temperatures': getTemp(),
+        'ip_address': getIp(),
+        'totalservices': getServiceDetails()["totalservices"],
+        'ssid': getSSID(),
+        "storage_devices": getStorageDevices()
+    }
+
+    return system_info_data
+
+
+def pidataReload():
+    memory = psutil.virtual_memory()
+    cpuFreq = getCpuFreq()
+    system_info_data = {
+        'cpu_percent': psutil.cpu_percent(1),
+        'cpu_freq': cpuFreq[0],
+
+        'cpu_mem_avail': round(int(memory.available)/(1000)**3, 1),
+        'cpu_mem_used': round(int(memory.used)/(1000)**3, 1),
+        'cpu_mem_free': round(int(memory.free)/(1000)**3, 1),
+        'cpu_mem_percent': round((memory.available/memory.total)*100, 0),
+
         'sensor_temperatures': getTemp()
+
     }
 
     return system_info_data

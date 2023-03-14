@@ -8,4 +8,5 @@ urlpatterns = [
     path('poweroff', views.poweroff, name="poweroff"),
     path('reboot', views.reboot, name="reboot"),
     path('api1', views.api1, name="api1"),
+    path('api2', views.api2, name="api2"),
 ]

@@ -1,0 +1,9 @@
+[Unit]
+Description=The Cabin Project server Socket
+PartOf=cabin.service
+
+[Socket]
+ListenStream=0.0.0.0:8001
+
+[Install]
+WantedBy=sockets.target
