@@ -91,7 +91,7 @@
                             <div class="cpufreq card">
                                 <div class="card-data">
                                     <p class="card-label">CPU Frequency</p>
-                                    <p class="card-value">{{pidata.cpu_freq}} MHz</p>
+                                    <p class="card-value"><span>{{pidata.cpu_freq}}</span> MHz</p>
                                 </div>
                                 <div class="card-icon">
                                     <i class="far fa-chart-bar"></i>
@@ -229,7 +229,7 @@
                             <div class="memused card">
                                 <div class="card-data">
                                     <p class="card-label">Memory Used</p>
-                                    <p class="card-value">{{pidata.cpu_mem_used}} GB</p>
+                                    <p class="card-value"><span>{{pidata.cpu_mem_used}}</span> GB</p>
                                 </div>
                                 <div class="card-icon">
                                     <i class="far fa-analytics"></i>
@@ -249,7 +249,7 @@
                             <div class="memfree card">
                                 <div class="card-data">
                                     <p class="card-label">Memory Free</p>
-                                    <p class="card-value">{{pidata.cpu_mem_free}}</p>
+                                    <p class="card-value"><span>{{pidata.cpu_mem_free}}</span> GB</p>
                                 </div>
                                 <div class="card-icon">
                                     <i class="fas fa-wave-triangle"></i>
@@ -354,9 +354,9 @@
                 $('.cpuutil-chart').data('easyPieChart').update(cpu_percent);
                 $('.memutil-chart').data('easyPieChart').update(mem_percent);
 
-                document.querySelector(".cpufreq .card-value").innerHTML = cpu_freq;
-                document.querySelector(".memused .card-value").innerHTML = mem_usage;
-                document.querySelector(".memfree .card-value").innerHTML = mem_free;
+                document.querySelector(".cpufreq .card-value span").innerHTML = cpu_freq;
+                document.querySelector(".memused .card-value span").innerHTML = mem_usage;
+                document.querySelector(".memfree .card-value span").innerHTML = mem_free;
                 document.querySelector(".cputemp .card-value").innerHTML = temp;
 
             });
