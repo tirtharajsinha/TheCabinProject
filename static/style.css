@@ -29,12 +29,12 @@
 }
 
 .topbar .pi-logo {
-  width: 50px;
+  width: 30px;
   height: auto;
 }
 
 .topbar .AppName {
-  font-size: 35px;
+  font-size: 25px;
   font-family: "Roboto", sans-serif;
   color: var(--primary-color);
   font-weight: 600;
@@ -274,6 +274,9 @@
   }
 
   .topbar .AppName {
-    font-size: 30px;
+    font-size: 18px;
+  }
+  .topbar .pi-logo {
+    width: 22px;
   }
 }
