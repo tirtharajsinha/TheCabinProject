@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang='en'>
+{% load static %}
+
+<head>
+    <meta charset='UTF-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="shortcut icon" href="{% static 'favicon.png' %}" type="image/png">
+    <title>The Pi Cabin</title>
+</head>
+
+<body>
+    <div class="topbar">
+        <img src="{% static 'raspberrry_pi_logo.png' %}" class="pi-logo" alt="">
+        <span class="AppName">Raspberry Pi Server</span>
+    </div>
+
+    <div class="overview">
+        <div class="overviewnav">
+            <span class="section-title">Overview</span>
+            <div class="menu">
+                <div class="item-btn"><i class="far fa-cog"></i></div>
+                <div class="item-btn"><i class="far fa-folder"></i></div>
+                <div class="item-btn"><i class="far fa-th-large"></i></div>
+                <div class="item-btn"><i class="far fa-moon"></i></div>
+                <div class="item-btn"><i class="far fa-redo-alt"></i></div>
+            </div>
+        </div>
+        <div class="container">
+
+            <!-- First column -->
+            <div class="column">
+                <div class="netsection data-section">
+                    <div class="sectionName">Network Stats</div>
+                    <div class="card-box">
+                        <div class="row">
+                            <div class="netid card">
+                                <div class="card-data">
+                                    <p class="card-label">Network Name</p>
+                                    <p class="card-value">{{pidata.ssid}}</p>
+                                </div>
+                                <div class="card-icon">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="hostname card">
+                                <div class="card-data">
+                                    <p class="card-label">HOSTNAME</p>
+                                    <p class="card-value">{{pidata.ip_address}}</p>
+                                </div>
+                                <div class="card-icon">
+                                    <!-- <i class="far fa-wifi"></i> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="allservice card">
+                                <div class="card-data">
+                                    <p class="card-label">Active Services</p>
+                                    <p class="card-value">{{pidata.totalservices}}</p>
+                                </div>
+                                <div class="card-icon">
+                                    <i class="fas fa-cubes"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- second column -->
+            <div class="column">
+                <div class="cpusection data-section">
+                    <div class="sectionName">CPU Stats</div>
+                    <div class="card-box">
+                        <div class="row">
+                            <div class="cpuutil pie-chart">
+                                <div class="cpuutil-chart allchart" data-percent="{{pidata.cpu_percent}}"
+                                    data-scale-color="#00000000">
+                                    <div class="percent">
+                                        <span></span>
+                                    </div>
+                                </div>
+                                <div class="card-label">CPU Utilization</div>
+                            </div>
+                            <div class="cpufreq card">
+                                <div class="card-data">
+                                    <p class="card-label">CPU Frequency</p>
+                                    <p class="card-value"><span>{{pidata.cpu_freq}}</span> MHz</p>
+                                </div>
+                                <div class="card-icon">
+                                    <i class="far fa-chart-bar"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="cpucount card">
+                                <div class="card-data">
+                                    <p class="card-label">CPU Count</p>
+                                    <p class="card-value">{{pidata.cpu_count}}</p>
+                                </div>
+                                <div class="card-icon">
+                                    <i class="far fa-microchip"></i>
+                                </div>
+                            </div>
+                            <div class="cpumaxfreq card">
+                                <div class="card-data">
+                                    <p class="card-label">Max Frequency</p>
+                                    <p class="card-value">{{pidata.max_cpu_freq}} MHz</p>
+                                </div>
+                                <div class="card-icon">
+                                    <i class="far fa-tachometer-fastest"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="fanon card">
+                                <div class="card-data">
+                                    <p class="card-label">Fan</p>
+                                    <p class="card-value">ON</p>
+                                </div>
+                                <div class="card-icon">
+                                    <i class="far fa-fan"></i>
+                                </div>
+                            </div>
+                            <div class="cputemp card">
+                                <div class="card-data">
+                                    <p class="card-label">Temperature</p>
+                                    <p class="card-value">{{pidata.sensor_temperatures}}</p>
+                                </div>
+                                <div class="card-icon">
+                                    <i class="far fa-temperature-high"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Third Column -->
+            <div class="column">
+                <div class="disksection data-section">
+                    <div class="sectionName">Disks Stats</div>
+                    <div class="card-box">
+                        <div class="row">
+                            <div class="diskutil pie-chart">
+                                <div class="diskutil-chart allchart" data-percent="{{pidata.disk_usage_percent}}"
+                                    data-scale-color="#00000000">
+                                    <div class="percent">
+                                        <span></span>
+                                    </div>
+                                </div>
+                                <div class="card-label">Disk Utilization</div>
+                            </div>
+                            <div class="diskused card">
+                                <div class="card-data">
+                                    <p class="card-label">Disk Used</p>
+                                    <p class="card-value">{{pidata.disk_usage_used}} GB</p>
+                                </div>
+                                <div class="card-icon">
+                                    <i class="far fa-compact-disc"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="disktotal card">
+                                <div class="card-data">
+                                    <p class="card-label">Disk Available</p>
+                                    <p class="card-value">{{pidata.disk_usage_free}} GB</p>
+                                </div>
+                                <div class="card-icon">
+                                    <i class="far fa-disc-drive"></i>
+                                </div>
+                            </div>
+                            <div class="memefree card">
+                                <div class="card-data">
+                                    <p class="card-label">Total Disk Space</p>
+                                    <p class="card-value">{{pidata.disk_usage_total}} GB</p>
+                                </div>
+                                <div class="card-icon">
+                                    <i class="far fa-save"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="card">
+                                <div class="card-data">
+                                    <p class="card-label">Internal Storage</p>
+                                    <p class="card-value">{{pidata.storage_devices.internal}} GB</p>
+                                </div>
+                                <div class="card-icon">
+
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-data">
+                                    <p class="card-label">Extarnal Storage</p>
+                                    <p class="card-value">{{pidata.storage_devices.extarnal}} GB</p>
+                                </div>
+                                <div class="card-icon">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fourth column -->
+            <div class="column">
+                <div class="memsection data-section">
+                    <div class="sectionName">Memory Stats</div>
+                    <div class="card-box">
+                        <div class="row">
+                            <div class="memutil pie-chart">
+                                <div class="memutil-chart allchart" data-percent="{{pidata.cpu_mem_percent}}"
+                                    data-scale-color="#00000000">
+                                    <div class="percent">
+                                        <span></span>
+                                    </div>
+                                </div>
+                                <div class="card-label">Memory Available</div>
+                            </div>
+                            <div class="memused card">
+                                <div class="card-data">
+                                    <p class="card-label">Memory Used</p>
+                                    <p class="card-value"><span>{{pidata.cpu_mem_used}}</span> GB</p>
+                                </div>
+                                <div class="card-icon">
+                                    <i class="far fa-analytics"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="memtotal card">
+                                <div class="card-data">
+                                    <p class="card-label">Total Memory</p>
+                                    <p class="card-value">{{pidata.cpu_mem_total}} GB</p>
+                                </div>
+                                <div class="card-icon">
+                                    <i class="far fa-memory"></i>
+                                </div>
+                            </div>
+                            <div class="memfree card">
+                                <div class="card-data">
+                                    <p class="card-label">Memory Free</p>
+                                    <p class="card-value"><span>{{pidata.cpu_mem_free}}</span> GB</p>
+                                </div>
+                                <div class="card-icon">
+                                    <i class="fas fa-wave-triangle"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+
+
+    </div>
+
+
+    <script src="{% static 'fontawasome5.15-pro.js' %}"></script>
+    <script src="{% static 'plugins/jquery-2.2.4.min.js' %}"></script>
+    <script src="{% static 'plugins/jquery.appear.min.js' %}"></script>
+    <script src="{% static 'plugins/jquery.easypiechart.min.js' %}"></script>
+    <script>
+        let cpuchart = $('.cpuutil-chart').easyPieChart({
+            easing: 'easeOutElastic',
+            delay: 3000,
+            barColor: '#000',
+            trackColor: '#c7c7c7b2',
+            scaleColor: '#fff',
+            scaleLenght: 50,
+            lineWidth: 5,
+            trackWidth: 3,
+            size: 120,
+            lineCap: 'square',
+            animate: { duration: 1, enabled: true },
+            onStop: function (from, to) {
+                this.el.children[0].innerHTML = `<span>${Math.round(to)}</span><span class="psign">%</span>`;
+            },
+        });
+
+        let memchart = $('.memutil-chart').easyPieChart({
+            easing: 'easeOutElastic',
+            delay: 3000,
+            barColor: '#000',
+            trackColor: '#c7c7c7b2',
+            scaleColor: '#fff',
+            scaleLenght: 50,
+            lineWidth: 5,
+            trackWidth: 3,
+            size: 120,
+            lineCap: 'square',
+            animate: { duration: 1, enabled: true },
+            onStop: function (from, to) {
+                this.el.children[0].innerHTML = `<span>${Math.round(to)}</span><span class="psign">%</span>`;
+            },
+        });
+
+        let diskchart = $('.diskutil-chart').easyPieChart({
+            easing: 'easeOutElastic',
+            delay: 3000,
+            barColor: '#000',
+            trackColor: '#c7c7c7b2',
+            scaleColor: '#fff',
+            scaleLenght: 50,
+            lineWidth: 5,
+            trackWidth: 3,
+            size: 120,
+            lineCap: 'square',
+            animate: { duration: 1, enabled: true },
+            onStop: function (from, to) {
+                this.el.children[0].innerHTML = `<span>${Math.round(to)}</span><span class="psign">%</span>`;
+            },
+        });
+
+        // $('.cpuutil-chart').data('easyPieChart').update(40)
+        // $('.memutil-chart').data('easyPieChart').update(20)
+        // $('.diskutil-chart').data('easyPieChart').update(19)
+
+        // window.addEventListener("resize", (e) => {
+        //     if (window.innerWidth < 450) {
+        //         $('.memutil-chart').data('easyPieChart').update(20)
+        //         $('.diskutil-chart').data('easyPieChart').update(19)
+        //     }
+        // });
+
+        setInterval(() => {
+            $.get("/api2", function (data) {
+                // console.log(data);
+                data = data.data;
+                let temp = data["sensor_temperatures"];
+                let cpu_percent = data["cpu_percent"];
+                let cpu_freq = data["cpu_freq"];
+                let mem_usage = data["cpu_mem_used"];
+                let mem_avail = data["cpu_mem_avail"];
+                let mem_free = data["cpu_mem_free"];
+                let mem_percent = data["cpu_mem_percent"]
+
+                console.log()
+
+                $('.cpuutil-chart').data('easyPieChart').update(cpu_percent);
+                $('.memutil-chart').data('easyPieChart').update(mem_percent);
+
+                document.querySelector(".cpufreq .card-value span").innerHTML = cpu_freq;
+                document.querySelector(".memused .card-value span").innerHTML = mem_usage;
+                document.querySelector(".memfree .card-value span").innerHTML = mem_free;
+                document.querySelector(".cputemp .card-value").innerHTML = temp;
+
+            });
+        }, 1500);
+
+    </script>
+</body>
+
+</html>

@@ -21,7 +21,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.0.17/dist/js/splide.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.0.17/dist/css/splide.min.css">
-    <link rel="stylesheet" href="static/style.css">
+    <link rel="stylesheet" href="static/base.css">
     <link rel="stylesheet" href="static/loader.css">
     {% block style %}{% endblock %}
     <title>{% block title %}{% endblock %} | Cabin</title>
@@ -31,37 +31,42 @@
     <div class="main">
         <div class="sidebar">
             <div class="branding">
-                <img id="expandbar" src="static/favicon.png" alt="">
+
+                <div class="sidecon" id="expandbar">
+                    <img src="static/favicon.png" alt="">
+                    <div class="hr"></div>
+                    <i class="far fa-long-arrow-right"></i>
+                </div>
+
                 <p class="pagename fulld">The Cabin Project</p>
                 <p class="pagetype fulld">Pi Server dashboard</p>
             </div>
             <div class="close-nav-btn">
                 <i class="fal fa-chevron-left"></i>
             </div>
-            <div class="hr"></div>
+            <div class="hrs"></div>
             <ul>
                 <h3>DASHBOARD</h3>
-                <a href="" class="active"><i class="fas fa-th-large"></i><span>Overview</span></a>
-
+                <a href="" class="active"><i class="fas fa-th-large"></i><span>Lobby</span></a>
+                <a href=""><i class="far fa-chart-bar"></i><span>Live Monitor</span></a>
             </ul>
             <div class="hrs"></div>
             <ul>
                 <h3>SYSTEM</h3>
+                <a href=""><i class="fal fa-folder"></i><span>File Browser</span></a>
                 <a href=""><i class="fal fa-microchip"></i><span>Hardware</span></a>
                 <a href=""><i class="fal fa-database"></i><span>Storage</span></a>
                 <a href=""><i class="fal fa-wifi"></i><span>Network</span></a>
                 <a href=""><i class="fal fa-user-alt"></i><span>Accounts</span></a>
                 <a href=""><i class="fal fa-industry-alt"></i><span>Services</span></a>
-                <a href=""><i class="fal fa-terminal"></i><span>Runner</span></a>
+                <a href=""><i class="fal fa-terminal"></i><span>Terminal</span></a>
             </ul>
             <div class="hrs"></div>
             <ul class="highlight-block">
                 <h3>APPS</h3>
                 <a href=""><i class="fal fa-camera-movie"></i><span>Jellyfin</span></a>
                 <a href=""><i class="fal fa-plane"></i><span>Cockpit</span></a>
-                <a href=""><i class="fal fa-router"></i><span>Netcheck</span></a>
                 <a href=""><i class="fal fa-house"></i><span>Cabin</span></a>
-                <a href=""><i class="fal fa-bolt"></i><span>PowerNotify</span></a>
             </ul>
             <ul>
                 <h3>OTHERS</h3>
@@ -75,12 +80,10 @@
         <div class="container">
             <div class="topbar">
                 <div class="topbarbox">
-                    <a href="#" class="pageh fulld data-hostname">Hostname</a>
-                    <div class="sep fulld"></div>
+                    <a class="pageh fulld data-hostname">Hostname on Os name</a>
                 </div>
                 <div class="topbarbox">
                     <div class="space fulld"></div>
-                    <div class="sep fulld"></div>
                     <i class="fal fa-bell"></i>
                     <div class="space"></div>
                     <i class="fal fa-moon" id="theme-toggle"></i>
@@ -90,8 +93,7 @@
                 </div>
             </div>
             <div class="control-center supercard">
-                <img src="static/Avatar.png" alt="">
-                <h4>Tirtharaj Sinha</h4>
+                <img src="static/raspberrry_pi_logo.png" alt="">
                 <h5><span class="data-username">username</span>@<span class="data-hostname">hostname</span></h5>
                 <div class="settings">
                     <div class="st-box" id="st-btn1">
@@ -171,9 +173,11 @@
         function removeLoader() {
             $("#loader").fadeOut(500, function () {
                 // fadeOut complete. Remove the loading div
-                $("#loader").remove(); //makes page more lightweight 
+                $("#loader").remove(); //makes page more lightweight
             });
         }
+
+
     </script>
     <script src="static/fontawasome5.15-pro.js"></script>
     <!-- choose one -->

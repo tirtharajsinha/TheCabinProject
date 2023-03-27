@@ -4,6 +4,7 @@ from home import views
 
 urlpatterns = [
     path('', views.index, name="home"),
+    path('monitor', views.sysmonitor, name="monitor"),
     path('check', views.check, name="check"),
     path('poweroff', views.poweroff, name="poweroff"),
     path('reboot', views.reboot, name="reboot"),

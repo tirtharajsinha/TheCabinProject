@@ -15,8 +15,13 @@ import os
 
 
 def index(request):
-    context = {"pidata": pidata()}
+    context = {}
     return render(request, "index.html", context=context)
+
+
+def sysmonitor(request):
+    context = {"pidata": pidata()}
+    return render(request, "monitor.html", context=context)
 
 
 def check(request):
