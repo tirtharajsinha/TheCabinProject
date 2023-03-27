@@ -1,8 +1,6 @@
-<img src="static/favicon.png" align="left" width="30px">
+# <img src="static/favicon.png" align="left" width="35px">TheCabinProject
 
-# TheCabinProject
-
-### <img src="static/raspberrry_pi_logo.png" align="left" width="20px"> RaspberryPi Server dashboard
+### <img src="static/raspberrry_pi_logo.png" align="left" width="25px"> RaspberryPi Server dashboard
 
 <img src="screenshot.png">
 ## Requirements
