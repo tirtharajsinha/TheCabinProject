@@ -142,3 +142,60 @@
   content: "";
   background-color: var(--activetext);
 }
+
+.saveNotiBox {
+  width: 300px;
+  height: auto;
+  padding: 10px;
+  position: fixed;
+  right: -300px;
+  bottom: 20px;
+  background-color: var(--secondary-bg-color);
+  transition: all 0.5s ease-in-out;
+  background: var(--card-bg-color);
+  border-radius: 20px;
+}
+
+.saveNotiBox .msg {
+  color: var(--secondary-text-color);
+}
+
+.saveNotiBox .confbtns {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1.3fr 0.7fr;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.confbtns .yesbtn {
+  background-color: #8cc04b;
+  color: #242629;
+  border-radius: 10px;
+  transition: all 0.1s ease;
+  padding: 10px 0;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+}
+.confbtns .yesbtn:hover {
+  background-color: #a6be88;
+}
+
+.confbtns .nobtn {
+  background-color: tomato;
+  color: #242629;
+  border-radius: 10px;
+  transition: all 0.1s ease;
+  padding: 10px 0;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+}
+.confbtns .nobtn:hover {
+  background-color: rgb(248, 160, 144);
+}
