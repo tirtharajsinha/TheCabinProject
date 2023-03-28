@@ -15,6 +15,11 @@ def cpuLoad():
     return os.getloadavg()[0]
 
 
+def osName():
+    data = os.popen("grep '^NAME=' /etc/os-release").read()
+    return data
+
+
 def getCpuFreq():
     freq = subprocess.check_output(
         ['vcgencmd', 'measure_clock arm']).decode('utf-8').split("\n")[0]

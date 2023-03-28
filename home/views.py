@@ -19,6 +19,11 @@ def index(request):
     return render(request, "index.html", context=context)
 
 
+def manageapp(request):
+    context = {}
+    return render(request, "manageapp.html", context=context)
+
+
 def sysmonitor(request):
     context = {"pidata": pidata()}
     return render(request, "monitor.html", context=context)

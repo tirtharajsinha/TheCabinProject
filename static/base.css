@@ -55,7 +55,7 @@
   --secondary-text-color: #323335;
   --card-text-color: #4a4a4a;
   --dimmed-text-color: #28292caf;
-  --dimmed-bg-color: #d8dee9b7;
+  --dimmed-bg-color: #c6c6c6b7;
 }
 
 * {
@@ -130,8 +130,8 @@ body {
 }
 .context {
   margin-top: 5px;
-  display: flex;
   width: 100%;
+  padding: 10px;
 }
 .centerbox {
   width: calc(100%);
@@ -181,6 +181,17 @@ body {
   cursor: pointer;
   padding: 7px;
   font-size: 15px;
+}
+
+.adminicon {
+  color: var(--activetext);
+  background-color: var(--dimmed-bg-color);
+  border-radius: 5px;
+  white-space: nowrap;
+}
+
+.adminicon span {
+  color: var(--card-text-color);
 }
 
 .topbarbox a {
@@ -255,6 +266,16 @@ body {
   margin-left: 10px;
   font-weight: 500;
   letter-spacing: 1px;
+  user-select: none;
+}
+
+.topbarspan {
+  font-size: 15px;
+  font-family: "Poppins", sans-serif;
+  margin-left: 10px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  user-select: none;
 }
 .hrs {
   width: 100;
@@ -332,6 +353,7 @@ body {
   font-weight: 500;
   letter-spacing: 1.5px;
   font-size: 20px;
+  margin-top: 0;
 }
 
 .sidebar ul a {
@@ -367,7 +389,19 @@ body {
 }
 
 .active {
+  position: relative;
   color: var(--activetext);
+}
+
+.active:before {
+  position: absolute;
+  width: 5px;
+  height: 80%;
+  background-color: var(--activetext);
+  content: "";
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  transform: translateX(-35px) translateY(-5px);
 }
 .sidebar .sidecon {
   display: flex;
@@ -634,7 +668,7 @@ body {
   margin-bottom: 0px;
 }
 .supercard h5 {
-  color: var(--nord8);
+  color: var(--pi-color-green);
   text-align: center;
 }
 .supercard .btn {
@@ -675,13 +709,14 @@ body {
 }
 
 .settings {
-  height: 110px;
+  height: auto;
   width: 100%;
   display: grid;
-  grid-auto-columns: 1fr 1fr 1fr;
-  grid-auto-flow: column;
+  grid-template-columns: 1fr 1fr 1fr;
+  /* grid-auto-flow: column; */
   gap: 10px;
-  margin-top: 50px;
+  margin-top: 20px;
+  user-select: none;
 }
 .st-box {
   height: auto;

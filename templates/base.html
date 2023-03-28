@@ -12,15 +12,11 @@
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.3.js"
         integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/highcharts-more.js"></script>
-    <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/export-data.js"></script>
-    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.0.17/dist/js/splide.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.0.17/dist/css/splide.min.css">
+
+    <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-1.10.2.js">
+    </script>
+    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
     <link rel="stylesheet" href="static/base.css">
     <link rel="stylesheet" href="static/loader.css">
     {% block style %}{% endblock %}
@@ -53,25 +49,24 @@
             <div class="hrs"></div>
             <ul>
                 <h3>SYSTEM</h3>
+
                 <a href=""><i class="fal fa-folder"></i><span>File Browser</span></a>
                 <a href=""><i class="fal fa-microchip"></i><span>Hardware</span></a>
-                <a href=""><i class="fal fa-database"></i><span>Storage</span></a>
-                <a href=""><i class="fal fa-wifi"></i><span>Network</span></a>
-                <a href=""><i class="fal fa-user-alt"></i><span>Accounts</span></a>
-                <a href=""><i class="fal fa-industry-alt"></i><span>Services</span></a>
-                <a href=""><i class="fal fa-terminal"></i><span>Terminal</span></a>
             </ul>
             <div class="hrs"></div>
             <ul class="highlight-block">
-                <h3>APPS</h3>
-                <a href=""><i class="fal fa-camera-movie"></i><span>Jellyfin</span></a>
-                <a href=""><i class="fal fa-plane"></i><span>Cockpit</span></a>
-                <a href=""><i class="fal fa-house"></i><span>Cabin</span></a>
+                <h3>CABIN CONTROL</h3>
+                <a href=""><i class="far fa-palette"></i><span>Appearance</span></a>
+                <a href="/manage"><i class="far fa-gamepad-alt"></i><span>Manage Apps</span></a>
+                <a href=""><i class="fal fa-shield"></i><span>Security</span></a>
+                <a href=""><i class="fas fa-clipboard"></i><span>Notes</span></a>
             </ul>
             <ul>
-                <h3>OTHERS</h3>
-                <a href=""><i class="fas fa-clipboard"></i><span>About</span></a>
-                <a href=""><i class="fal fa-cog"></i><span>Settings</span></a>
+                <h3>MORE</h3>
+
+                <a href=""><i class="far fa-id-card-alt"></i><span>About</span></a>
+                <a href=""><i class="fal fa-file-certificate"></i><span>Cradit</span></a>
+                <a href=""><i class="fas fa-books"></i><span>Docs</span></a>
 
             </ul>
             <br>
@@ -83,6 +78,9 @@
                     <a class="pageh fulld data-hostname">Hostname on Os name</a>
                 </div>
                 <div class="topbarbox">
+                    <div class="space fulld"></div>
+                    <i class="fas fa-bolt adminicon"><span class="topbarspan">Admin</span><span
+                            class="topbarspan fulld">Access</span></i>
                     <div class="space fulld"></div>
                     <i class="fal fa-bell"></i>
                     <div class="space"></div>
@@ -113,6 +111,24 @@
                             <i class="fal fa-redo"></i>
                         </div>
                         <div class="st-label">Reboot</div>
+                    </div>
+                    <div class="st-box" id="st-btn4">
+                        <div class="st-btn">
+                            <i class="far fa-shield-alt"></i>
+                        </div>
+                        <div class="st-label">Security</div>
+                    </div>
+                    <div class="st-box" id="st-btn5" id="com-poweroff" onclick="poweroff()">
+                        <div class="st-btn">
+                            <i class="fas fa-map-signs"></i>
+                        </div>
+                        <div class="st-label">Location</div>
+                    </div>
+                    <div class="st-box" id="st-btn6" id="com-reboot" onclick="reboot()">
+                        <div class="st-btn">
+                            <i class="fas fa-chart-network"></i>
+                        </div>
+                        <div class="st-label">VPN</div>
                     </div>
                 </div>
             </div>

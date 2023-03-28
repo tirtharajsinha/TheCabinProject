@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% block style %}
+<link rel="stylesheet" href="static/manageapp.css">
+{% endblock %}
+{% block title %}ManageApps{% endblock %}
+
+{% block body %}
+
+<div class="managebar">
+    <p>Manage Your Apps</p>
+    <i class="fas fa-info-circle"></i>
+</div>
+
+<div id="imageListId">
+    <div id="imageNo1" class="listitemClass pinnedapp" data-id=1>
+        <img src="/static/raspberrry_pi_logo.png" alt="" class="appLogo">
+        <div class="appTitle">RaspberryPi</div>
+        <div class="actionBox">
+            <div class="visibility" onclick="togglePinApp(this)" data-pin=1 data-id=1>
+                <i class="far fa-eye"></i>
+            </div>
+            <div class="edit" onclick="editApp()">
+                <i class="fal fa-pen"></i>
+            </div>
+        </div>
+
+    </div>
+    <div id="imageNo1" class="listitemClass" data-id=2>
+
+        <img src="/static/raspberrry_pi_logo.png" alt="" class="appLogo">
+        <div class="appTitle">RaspberryPi</div>
+        <div class="actionBox">
+            <div class="visibility" onclick="togglePinApp(this)" data-pin=1 data-id=2>
+                <i class="far fa-eye"></i>
+            </div>
+            <div class="edit" onclick="editApp()">
+                <i class="fal fa-pen"></i>
+            </div>
+        </div>
+
+    </div>
+    <div id="imageNo1" class="listitemClass" data-id=3>
+
+        <img src="/static/raspberrry_pi_logo.png" alt="" class="appLogo">
+        <div class="appTitle">RaspberryPi</div>
+        <div class="actionBox">
+            <div class="visibility" onclick="togglePinApp(this)" data-pin=1 data-id=3>
+                <i class="far fa-eye"></i>
+            </div>
+            <div class="edit" onclick="editApp()">
+                <i class="fal fa-pen"></i>
+            </div>
+        </div>
+
+    </div>
+    <div id="imageNo1" class="listitemClass" data-id=4>
+
+        <img src="/static/raspberrry_pi_logo.png" alt="" class="appLogo">
+        <div class="appTitle">RaspberryPi</div>
+        <div class="actionBox">
+            <div class="visibility" onclick="togglePinApp(this)" data-pin=1 data-id=4>
+                <i class="far fa-eye"></i>
+            </div>
+            <div class="edit" onclick="editApp()">
+                <i class="fal fa-pen"></i>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function togglePinApp(app) {
+        app.querySelector("i").classList.toggle("fa-eye");
+        app.querySelector("i").classList.toggle("fa-eye-slash");
+        let id = app.dataset.id;
+        if (app.dataset.pin == 1) {
+            app.dataset.pin = 0;
+            findId(id).classList.remove("pinnedapp");
+        }
+        else {
+            app.dataset.pin = 1;
+            findId(id).classList.add("pinnedapp");
+        }
+    }
+
+
+    function findId(id) {
+        let all = document.querySelectorAll('.listitemClass');
+        for (let i = 0; i < all.length; i++) {
+            // console.log(all[i].dataset.id + "" + id);
+            if (all[i].dataset.id == id) {
+                return all[i];
+            }
+        }
+    }
+</script>
+
+{% endblock %}
