@@ -24,6 +24,12 @@
 </head>
 
 <body>
+    <script>
+        current_theme = "{{ theme.themeName | safe }}";
+        let accent_color = "{{ theme.accentColor | safe }}";
+        var r = document.querySelector(":root");
+        r.style.setProperty("--activetext", accent_color);
+    </script>
     <div class="main">
         <div class="sidebar">
             <div class="branding">
@@ -43,30 +49,30 @@
             <div class="hrs"></div>
             <ul>
                 <h3>DASHBOARD</h3>
-                <a href="" class="active"><i class="fas fa-th-large"></i><span>Lobby</span></a>
-                <a href="/monitor"><i class="far fa-chart-bar"></i><span>Live Monitor</span></a>
+                <a href="/" class="lobby"><i class="fas fa-th-large"></i><span>Lobby</span></a>
+                <a href="/monitor" class="monitor"><i class="far fa-chart-bar"></i><span>Live Monitor</span></a>
             </ul>
             <div class="hrs"></div>
             <ul>
                 <h3>SYSTEM</h3>
 
-                <a href=""><i class="fal fa-folder"></i><span>File Browser</span></a>
-                <a href=""><i class="fal fa-microchip"></i><span>Hardware</span></a>
+                <a href="" class="file"><i class="fal fa-folder"></i><span>File Browser</span></a>
+                <a href="" class="hardware"><i class="fal fa-microchip"></i><span>Hardware</span></a>
             </ul>
             <div class="hrs"></div>
             <ul class="highlight-block">
                 <h3>CABIN CONTROL</h3>
-                <a href=""><i class="far fa-palette"></i><span>Appearance</span></a>
-                <a href="/manage"><i class="far fa-gamepad-alt"></i><span>Manage Apps</span></a>
-                <a href=""><i class="fal fa-shield"></i><span>Security</span></a>
-                <a href=""><i class="fas fa-clipboard"></i><span>Notes</span></a>
+                <a href="/appearance" class="appearance"><i class="far fa-palette"></i><span>Appearance</span></a>
+                <a href="/manage" class="manageapps"><i class="far fa-gamepad-alt"></i><span>Manage Apps</span></a>
+                <a href="" class="security"><i class="fal fa-shield"></i><span>Security</span></a>
+                <a href="" class="notes"><i class="fas fa-clipboard"></i><span>Notes</span></a>
             </ul>
             <ul>
                 <h3>MORE</h3>
 
-                <a href=""><i class="far fa-id-card-alt"></i><span>About</span></a>
-                <a href=""><i class="fal fa-file-certificate"></i><span>Cradit</span></a>
-                <a href=""><i class="fas fa-books"></i><span>Docs</span></a>
+                <a href="" class="about"><i class="far fa-id-card-alt"></i><span>About</span></a>
+                <a href="" class="cradit"><i class="fal fa-file-certificate"></i><span>Cradit</span></a>
+                <a href="" class="Docs"><i class="fas fa-books"></i><span>Docs</span></a>
 
             </ul>
             <br>
@@ -193,6 +199,7 @@
             });
         }
 
+        document.querySelector("." + curlivepage).classList.add("active");
 
     </script>
     <script src="static/fontawasome5.15-pro.js"></script>
@@ -201,6 +208,7 @@
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <script src="static/chart.js"></script>
     <script src="static/index.js"></script>
+
 
 </body>
 

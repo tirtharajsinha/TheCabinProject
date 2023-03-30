@@ -41,15 +41,7 @@
             </div>
         </div>
     </div>
-    <div class='saveNotiBox'>
-        <div class="msg">
-            App panel Order Changed. Do you want to save new order?
-            <div class="confbtns">
-                <div class="yesbtn" onclick="orderYes()">YES</div>
-                <div class="nobtn" onclick="orderNo()">NO</div>
-            </div>
-        </div>
-    </div>
+
 </div>
 
 
@@ -60,10 +52,12 @@
 
 
 <script>
+
+    let curlivepage = "lobby";
     clock();
     setInterval(() => {
         clock();
-    }, 1000 * 60);
+    }, 1000 * 30);
 
     function clock() {
         let a = new Date();

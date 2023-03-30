@@ -5,6 +5,7 @@ from home import views
 urlpatterns = [
     path('', views.index, name="home"),
     path('manage', views.manageapp, name="manageapp"),
+    path('appearance', views.appearance, name="appearance"),
     path('monitor', views.sysmonitor, name="monitor"),
     path('check', views.check, name="check"),
     path('poweroff', views.poweroff, name="poweroff"),

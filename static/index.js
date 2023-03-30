@@ -1,10 +1,13 @@
 let nev = false;
 let curhardfull = false;
 let text_color = "#d8dee9";
-current_theme = localStorage.getItem("current-theme");
+if (current_theme == undefined) {
+    current_theme = localStorage.getItem("current-theme");
+}
+
 if (current_theme == null) {
     localStorage.setItem("current-theme", "light");
-    current_theme = "light";
+    current_theme = "dark";
 }
 
 if (document.querySelector(".sidebar").clientWidth <= 60) {

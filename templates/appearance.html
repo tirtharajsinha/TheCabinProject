@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+{% block style %}
+<link rel="stylesheet" href="static\apprearance.css">
+{% endblock %}
+{% block title %}Appearance{% endblock %}
+
+{% block body %}
+<h2 class="pagetitle">Appearance : <span class="fulld">Make yourself at home.</span></h2>
+<h5 class="pagesubtitle">Pick you color, theme and apps view.</h5>
+<div class="accentColor">
+    <p>Choose your accent color</p>
+    <div class="palate">
+        <div class="colordrop" data-color="#c7053d" style="background: #c7053d;" onclick="changeAccentColor(this)">
+        </div>
+        <div class="colordrop" data-color="#4058F2" style="background: #4058F2;" onclick="changeAccentColor(this)">
+        </div>
+        <div class="colordrop" data-color="#0FD267" style="background: #0FD267;" onclick="changeAccentColor(this)">
+        </div>
+        <div class="colordrop" data-color="#EABE10" style="background: #EABE10;" onclick="changeAccentColor(this)">
+        </div>
+        <div class="colordrop" data-color="#EA9E10" style="background: #EA9E10;" onclick="changeAccentColor(this)">
+        </div>
+        <div class="colordrop" data-color="#EA1093" style="background: #EA1093;" onclick="changeAccentColor(this)">
+        </div>
+        <div class="colordrop" data-color="#5910EA" style="background: #5910EA;" onclick="changeAccentColor(this)">
+        </div>
+        <div class="colordrop" data-color="#479dbb" style="background: #479dbb;" onclick="changeAccentColor(this)">
+        </div>
+        <div class="colordrop" data-color="#09bb90" style="background: #09bb90;" onclick="changeAccentColor(this)">
+        </div>
+        <div class="colordrop" data-color="#3f8ff7" style="background: #3f8ff7;" onclick="changeAccentColor(this)">
+        </div>
+    </div>
+</div>
+
+<div class="themeSettings">
+    <p>Choose your theme</p>
+    <div class="themeMenu">
+        <div class="themeBox darkbox" data-themebtn="dark" onclick="ChangeTheme(this)">
+            <div class="themeStyle">
+                <div class="themepreview"></div>
+            </div>
+            <div class="themename">Dusk Moon</div>
+        </div>
+        <div class="themeBox lightbox" data-themebtn="light" onclick="ChangeTheme(this)">
+            <div class="themeStyle">
+                <div class="themepreview"></div>
+            </div>
+            <div class="themename">Morning Shine</div>
+        </div>
+    </div>
+</div>
+
+<div class="appView">
+    <p>Choose your App badge view(Wide Screen)</p>
+    <div class="btnview">
+        <div class="fullsize viewbtn activeView">Fullsize</div>
+        <div class="compact viewbtn">Compact</div>
+    </div>
+
+    <p>Choose your App badge view(Small Screen)</p>
+    <div class="btnview">
+        <div class="fullsize viewbtn">Fullsize</div>
+        <div class="compact viewbtn activeView">Compact</div>
+    </div>
+
+</div>
+
+<script>
+    let curlivepage = "appearance";
+    function changeAccentColor(drop) {
+        let color = drop.dataset.color;
+        let icon = `<i class="far fa-check"></i>`;
+        let drops = document.getElementsByClassName("colordrop");
+        for (let i = 0; i < drops.length; i++) {
+            drops[i].innerHTML = "";
+            if (i == drops.length - 1) {
+                drop.innerHTML = icon;
+            }
+        }
+        var r = document.querySelector(":root");
+        r.style.setProperty("--activetext", color);
+        console.log("newColor=", color);
+    }
+
+    function locateAccentColorDrop(accent_color) {
+        let icon = `<i class="far fa-check"></i>`;
+
+        let drops = document.getElementsByClassName("colordrop");
+        for (let i = 0; i < drops.length; i++) {
+            if (drops[i].dataset.color == accent_color) {
+                drops[i].innerHTML = icon;
+            }
+        }
+
+    }
+
+    if (accent_color != undefined) {
+        locateAccentColorDrop(accent_color);
+    }
+
+
+    let themeloader = setInterval(() => {
+        try {
+            if (current_theme == "dark") {
+                document.querySelector(".darkbox").classList.add("activeTheme");
+            }
+            else {
+                document.querySelector(".lightbox").classList.add("activeTheme");
+            }
+            clearInterval(themeloader);
+        }
+        catch { }
+    }, 100);
+
+
+
+
+
+
+    function ChangeTheme(box) {
+        let theme = box.dataset.themebtn;
+
+        let drops = document.getElementsByClassName("themeBox");
+        for (let i = 0; i < drops.length; i++) {
+            drops[i].classList.remove("activeTheme");
+            if (i == drops.length - 1) {
+                box.classList.add("activeTheme");
+            }
+        }
+        if (current_theme == theme) {
+
+        }
+        else {
+            document.getElementById("theme-toggle").click()
+            current_theme = theme;
+        }
+    }
+
+
+
+</script>
+{% endblock %}

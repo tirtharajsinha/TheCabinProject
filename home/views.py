@@ -15,19 +15,37 @@ import os
 
 
 def index(request):
-    context = {}
+    context = {
+        "theme": getTheme()
+    }
     return render(request, "index.html", context=context)
 
 
 def manageapp(request):
-    context = {}
+    context = {
+        "theme": getTheme()
+    }
     return render(request, "manageapp.html", context=context)
 
 
+def appearance(request):
+    context = {
+        "theme": getTheme()
+    }
+    return render(request, "appearance.html", context=context)
+
+
 def sysmonitor(request):
-    context = {"pidata": pidata()}
+    context = {
+        "theme": getTheme,
+        "pidata": pidata()
+    }
     return render(request, "monitor.html", context=context)
 
+
+###############
+####  APIs ####
+###############
 
 def check(request):
     return JsonResponse({"status": "connected"})
@@ -61,3 +79,13 @@ def api1(request):
 def api2(request):
     data = pidataReload()
     return JsonResponse({"data": data})
+
+
+def getTheme():
+    accentList = ["#c7053d", "#4058F2", "#0FD267", "#EABE10",
+                  "#EA9E10", "#EA1093", "#5910EA", "#479dbb", "#09bb90", "#3f8ff7"]
+    theme = {
+        "themeName": "dark",
+        "accentColor": accentList[5]
+    }
+    return theme
