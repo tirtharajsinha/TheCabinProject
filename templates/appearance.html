@@ -5,7 +5,7 @@
 {% block title %}Appearance{% endblock %}
 
 {% block body %}
-<h2 class="pagetitle">Appearance : <span class="fulld">Make yourself at home.</span></h2>
+<h2 class="pagetitle">Appearance : <span class="fulld">Make yourself at home</span></h2>
 <h5 class="pagesubtitle">Pick you color, theme and apps view.</h5>
 <div class="accentColor">
     <p>Choose your accent color</p>
@@ -95,6 +95,8 @@
 
     }
 
+
+
     if (accent_color != undefined) {
         locateAccentColorDrop(accent_color);
     }
@@ -123,9 +125,9 @@
 
         let drops = document.getElementsByClassName("themeBox");
         for (let i = 0; i < drops.length; i++) {
-            drops[i].classList.remove("activeTheme");
+            // drops[i].classList.remove("activeTheme");
             if (i == drops.length - 1) {
-                box.classList.add("activeTheme");
+                // box.classList.add("activeTheme");
             }
         }
         if (current_theme == theme) {
@@ -136,6 +138,19 @@
             current_theme = theme;
         }
     }
+
+    document.getElementById("theme-toggle").addEventListener("click", (e) => {
+        if (current_theme == "light") {
+            document.querySelector(".darkbox").classList.add("activeTheme");
+            document.querySelector(".lightbox").classList.remove("activeTheme");
+        }
+        else {
+            document.querySelector(".darkbox").classList.remove("activeTheme");
+            document.querySelector(".lightbox").classList.add("activeTheme");
+        }
+    })
+
+
 
 
 

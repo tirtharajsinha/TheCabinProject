@@ -58,11 +58,22 @@
   --dimmed-bg-color: #c6c6c6b7;
 }
 
+::-moz-selection {
+  color: var(--activetext) rgba(255, 255, 255, 0.765);
+  background: var(--activetext);
+}
+
+::selection {
+  color: var(--activetext) rgba(255, 255, 255, 0.765);
+  background: var(--activetext);
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
   font-family: "Poppins", sans-serif;
+  -webkit-tap-highlight-color: transparent;
   /* transition: all 0.3s ease; */
 }
 
@@ -761,7 +772,7 @@ body {
   width: 6px;
 }
 .actionbox::-webkit-scrollbar-thumb {
-  background-color: var(--card-bg-color);
+  background-color: var(--primary-bg-color);
   border-radius: 40px;
 }
 .actionbox::-webkit-scrollbar-track {

@@ -104,6 +104,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.accentColor .palate .colordrop:active {
+  user-select: none;
 }
 
 .accentColor .palate .colordrop i {

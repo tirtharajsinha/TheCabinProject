@@ -86,6 +86,6 @@ def getTheme():
                   "#EA9E10", "#EA1093", "#5910EA", "#479dbb", "#09bb90", "#3f8ff7"]
     theme = {
         "themeName": "dark",
-        "accentColor": accentList[5]
+        "accentColor": accentList[0]
     }
     return theme
