@@ -54,14 +54,16 @@
 <div class="appView">
     <p>Choose your App badge view(Wide Screen)</p>
     <div class="btnview">
-        <div class="fullsize viewbtn activeView">Fullsize</div>
+        <div class="fullsize viewbtn activeView">Normal</div>
         <div class="compact viewbtn">Compact</div>
+        <div class="scompact viewbtn">Super Compact</div>
     </div>
 
     <p>Choose your App badge view(Small Screen)</p>
     <div class="btnview">
         <div class="fullsize viewbtn">Fullsize</div>
-        <div class="compact viewbtn activeView">Compact</div>
+        <div class="compact viewbtn">Compact</div>
+        <div class="scompact viewbtn activeView">Super Compact</div>
     </div>
 
 </div>
@@ -81,6 +83,8 @@
         var r = document.querySelector(":root");
         r.style.setProperty("--activetext", color);
         console.log("newColor=", color);
+        $.get("/savetheme", { accentcolor: color });
+
     }
 
     function locateAccentColorDrop(accent_color) {

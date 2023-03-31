@@ -8,6 +8,7 @@ from django.contrib import messages
 from django.http import JsonResponse
 from .utils import *
 import os
+from .models import Apps, AppOrder, SystemVar, Services
 
 # superuser username-cabin /  passward-cabin
 # Create your views here.
@@ -37,15 +38,37 @@ def appearance(request):
 
 def sysmonitor(request):
     context = {
-        "theme": getTheme,
+        "theme": getTheme(),
         "pidata": pidata()
     }
     return render(request, "monitor.html", context=context)
 
 
+def addapp(request):
+    context = {
+        "theme": getTheme(),
+    }
+    if request.method == "POST":
+        username = request.user.username
+        icon = request.FILES['icon']
+        name = request.POST.get("name")
+        description = request.POST.get("sub")
+        url = request.POST.get("url")
+        checked = request.POST.get("pinned") == "on"
+
+        print(name, url, checked, username)
+        # user = Upload(image=img, orgimage=orgimage,
+        #               action=action, username=username)
+        app = Apps(username=username, appname=name, description=description,
+                   icon=icon,  url=url, pinned=checked)
+        app.save()
+        return render(request, "addapp.html", context=context)
+    return render(request, "addapp.html", context=context)
+
 ###############
 ####  APIs ####
 ###############
+
 
 def check(request):
     return JsonResponse({"status": "connected"})
@@ -84,8 +107,31 @@ def api2(request):
 def getTheme():
     accentList = ["#c7053d", "#4058F2", "#0FD267", "#EABE10",
                   "#EA9E10", "#EA1093", "#5910EA", "#479dbb", "#09bb90", "#3f8ff7"]
+
+    theme = SystemVar.objects.get(var="theme")
+    accentcolor = SystemVar.objects.get(var="accentcolor")
     theme = {
-        "themeName": "dark",
-        "accentColor": accentList[0]
+        "themeName": theme.value,
+        "accentColor": accentcolor.value
     }
+    print(theme)
     return theme
+
+
+def saveTheme(request):
+    theme = request.GET.get("theme")
+    accentcolor = request.GET.get("accentcolor")
+
+    if theme:
+        dbtheme = SystemVar.objects.get(var="theme")
+        dbtheme.value = theme
+        dbtheme.save()
+        print(theme)
+    if accentcolor:
+        dbaccentcolor = SystemVar.objects.get(var="accentcolor")
+        dbaccentcolor.value = accentcolor
+        dbaccentcolor.save()
+
+        print(accentcolor)
+
+    return JsonResponse({"saved": True})

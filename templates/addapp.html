@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+{% block style %}
+<link rel="stylesheet" href="static/addapp.css">
+{% endblock %}
+{% block title %}ADD APP{% endblock %}
+
+{% block body %}
+
+<h3 class="pagetitle">ADD NEW APP</h3>
+<div class="AppBox">
+
+    <form action="/addapp" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="imageBox">
+            <label for="icon"><i class="far fa-pen-fancy"></i></label>
+            <img src="/static/dummy_app_icon.png" alt="" id="previewicon">
+            <input type="file" id="icon" name="icon" style="display:none;">
+        </div>
+
+        <div class="inputbox">
+            <p class="ilabel">What's your WEB-APP's name? <span style="color:red;">*</span></p>
+            <label for="name">
+                <input type="text" required autocomplete="off" id="name" name="name" placeholder="nextcloud">
+            </label>
+        </div>
+
+        <div class="inputbox">
+            <p class="ilabel">Add a short description of your app.<span style="color:red;">*</span></p>
+            <label for="sub">
+                <input type="text" required autocomplete="off" id="sub" name="sub"
+                    placeholder="A client-server software.">
+                Words : <span id="subcount">0</span>/5
+            </label>
+        </div>
+
+        <div class="inputbox">
+            <p class="ilabel">Put your WEB-APP's URL. <span style="color:red;">*</span></p>
+            <label for="url">
+                <input type="url" required autocomplete="off" id="url" name="url"
+                    placeholder="http://IP-ADDRESS:PORT-NO">
+            </label>
+        </div>
+
+        <div class="inputbox">
+            <p class="ilabel">Do you want to Pin your APP? <span style="color:red;">*</span></p>
+
+            <div class="btnview">
+                <div class="pinned viewbtn activeView" data-pinned=1 onclick="changevis(this)">
+                    <i class="fas fa-eye"></i>
+                    Pinned
+                </div>
+                <div class="unpinned viewbtn" data-pinned=0 onclick="changevis(this)">
+                    <i class="fas fa-eye-slash"> </i>
+                    Unpinned
+                </div>
+            </div>
+            <input type="checkbox" style="display: none;" required id="pinned" name="pinned"
+                placeholder="http://IP-ADDRESS:PORT-NO" checked>
+        </div>
+        <div class="Notice"></div>
+        <div class="save-btn" data-pinned=1 onclick="validateData()">
+            <i class="fal fa-layer-plus"> </i>
+            ADD APP
+        </div>
+
+        <button type="submit" hidden id="submit"></button>
+    </form>
+</div>
+
+
+<script>
+    curlivepage = "manageapps";
+    function changevis(ele) {
+        if (ele.dataset.pinned == 1) {
+            document.getElementById("pinned").checked = true;
+            document.querySelector(".pinned").classList.add("activeView");
+            document.querySelector(".unpinned").classList.remove("activeView");
+        }
+        else {
+            document.getElementById("pinned").checked = false;
+            document.querySelector(".unpinned").classList.add("activeView");
+            document.querySelector(".pinned").classList.remove("activeView");
+        }
+    }
+
+    document.getElementById("icon").onchange = evt => {
+        const [file] = document.getElementById("icon").files
+        if (file) {
+            document.getElementById("previewicon").src = URL.createObjectURL(file)
+        }
+    }
+
+    function validateData() {
+        let issu = 0;
+        let image = document.getElementById("icon");
+        let name = document.getElementById("name");
+        let url = document.getElementById("url");
+        let sub = document.getElementById("sub");
+        document.querySelector(".Notice").innerHTML = "";
+        if (image.value == "") {
+            issu++;
+            document.querySelector(".Notice").innerHTML += `<div>Please Add a icon for your App.</div>`
+        }
+        if (name.value == "") {
+            issu++;
+            document.querySelector(".Notice").innerHTML += `<div>Please Add Name of your App.</div>`
+        }
+        if (url.value == "") {
+            issu++;
+            document.querySelector(".Notice").innerHTML += `<div>Please Add URL for your App.</div>`
+        }
+
+        if (sub.value == "") {
+            issu++;
+            document.querySelector(".Notice").innerHTML += `<div>Please Add a short description of your App.</div>`
+        }
+        if (issu == 0) {
+            document.getElementById("submit").click();
+        }
+    }
+
+    document.getElementById("sub").addEventListener("input", (e) => {
+        let txt = e.target.value.trim();
+        let count = txt.split(' ').length;
+        document.getElementById("subcount").innerHTML = count;
+        if (count > 5) {
+            document.getElementById("subcount").style.color = "tomato";
+        }
+        else {
+            document.getElementById("subcount").style.color = "var(--primary-text-color)";
+        }
+    });
+
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+</script>
+{% endblock %}

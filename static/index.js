@@ -136,6 +136,7 @@ $(document).on("click", function (e) {
 document.querySelector("#theme-toggle").addEventListener("click", (e) => {
     show_loader();
     if (current_theme == "dark") {
+        $.get("/savetheme", { theme: "light" });
         current_theme = "light";
         text_color = "#3b4252";
         if (!nev && document.querySelector(".sidebar").clientWidth <= 60) {
@@ -152,6 +153,7 @@ document.querySelector("#theme-toggle").addEventListener("click", (e) => {
         // });
     } else {
         current_theme = "dark";
+        $.get("/savetheme", { theme: "dark" });
         text_color = "#d8dee9";
         if (!nev && document.querySelector(".sidebar").clientWidth <= 60) {
             // document.getElementById("expandbar").style.filter = "invert(180)";

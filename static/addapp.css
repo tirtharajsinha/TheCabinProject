@@ -1,0 +1,190 @@
+@import url(https://fonts.googleapis.com/css?family=Poppins:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic);
+@import url(https://fonts.googleapis.com/css?family=Roboto:100,100italic,300,300italic,regular,italic,500,500italic,700,700italic,900,900italic);
+
+:root {
+  --primary-bg-color: #242629;
+  --secondary-bg-color: #323335;
+  --card-bg-color: #4a4a4a;
+
+  --primary-text-color: #d8dee9;
+  --secondary-text-color: #e5e9f0;
+  --card-text-color: #eceff4;
+  --dimmed-text-color: #eceff4b2;
+  --dimmed-bg-color: #28292caf;
+  color: #ffffff00;
+  --nord0: #2e3440;
+  --nord1: #3b4252;
+  --nord2: #434c5e;
+  --nord3: #4c566a;
+  --nord4: #d8dee9;
+  --nord5: #e5e9f0;
+  --nord6: #eceff4;
+  --nord7: #8fbcbb;
+  --nord8: #88c0d0;
+  --nord9: #81a1c1;
+  --nord10: #5e81ac;
+  --nord11: rgb(191, 97, 106);
+  --nord12: #d08770;
+  --nord13: #ebcb8b;
+  --nord14: #a3be8c;
+  --nord15: #b48ead;
+  --activetext: #c7053d;
+
+  --pi-color-red: #c7053d;
+  --pi-color-green: #8cc04b;
+
+  --mob-nev: 60px;
+  --mob-brand-img: 30px;
+  --mob-nev-ul-width: 100%;
+  --mob-nev-ul-padding: 0px;
+  --mob-nev-ul-marginleft: 0px;
+  --mob-nev-ul-margin: auto;
+  --mob-nev-ul-h3: none;
+  --mob-nev-ul-a-marginleft: 10px;
+  --mob-nev-ul-a-span: none;
+  --mob-nev-ul-i-marginright: 0px;
+  --mob-hrs: block;
+}
+
+.light-theme {
+  --primary-bg-color: #e5e9f0;
+  --secondary-bg-color: #d8dee9;
+  --card-bg-color: #eceff4;
+
+  --primary-text-color: #242629;
+  --secondary-text-color: #323335;
+  --card-text-color: #4a4a4a;
+  --dimmed-text-color: #28292caf;
+  --dimmed-bg-color: #c6c6c6b7;
+}
+.context {
+  padding-left: 30px;
+  padding-bottom: 100px;
+}
+.pagetitle {
+  margin-top: 20px;
+  font-family: "Roboto", sans-serif;
+  letter-spacing: 1px;
+  font-weight: 700;
+}
+form {
+  width: 100%;
+  max-width: 500px;
+}
+.imageBox {
+  position: relative;
+  width: auto;
+  width: 150px;
+  margin-top: 100px;
+}
+
+.imageBox label {
+  position: absolute;
+  background-color: var(--dimmed-bg-color);
+  color: var(--activetext);
+  top: -10px;
+  right: -10px;
+  height: 30px;
+  width: 30px;
+  border-radius: 5px;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.imageBox img {
+  width: 150px;
+  height: auto;
+}
+
+.inputbox {
+  margin-top: 30px;
+}
+
+.inputbox .ilabel {
+  font-family: "Roboto", sans-serif;
+  letter-spacing: 1px;
+  font-weight: 400;
+  font-size: 18px;
+  color: var(--dimmed-text-color);
+}
+.inputbox label {
+  width: 90%;
+  max-width: 500px;
+}
+.inputbox input {
+  width: 100%;
+  max-width: 500px;
+  outline: none;
+  border: 3px solid var(--dimmed-text-color);
+  border-radius: 10px;
+  padding: 7px 10px;
+  color: var(--card-text-color);
+  margin-top: 10px;
+  background: transparent;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+.inputbox input:focus {
+  outline: none;
+  border: 3px solid var(--nord10);
+}
+
+.btnview {
+  display: flex;
+  align-items: center;
+  display: grid;
+  grid-template-columns: 130px 130px;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.btnview .viewbtn {
+  padding: 10px 0;
+  border-radius: 10px;
+  color: var(--dimmed-text-color);
+  border: 3px solid var(--dimmed-text-color);
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  user-select: none;
+  cursor: pointer;
+}
+
+.btnview .viewbtn:not(.activeView):hover {
+  color: var(--primary-text-color);
+  border: 3px solid var(--primary-text-color);
+}
+
+.btnview .activeView {
+  border: 3px solid var(--activetext);
+}
+
+.save-btn {
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+  background-color: var(--nord13);
+  border-radius: 10px;
+  color: var(--activetext);
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  margin-top: 40px;
+}
+
+.save-btn:hover {
+  background: #8cc04b;
+}
+
+.Notice {
+  margin-top: 50px;
+  padding-left: 40px;
+  font-size: 16px;
+  color: tomato;
+}

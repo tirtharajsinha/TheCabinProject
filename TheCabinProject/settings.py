@@ -25,7 +25,8 @@ SECRET_KEY = '+m2od!h%33cscq6m3!24jc=sy_y9x*a7c)hwcdnxop0qcwo9^i'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost", "192.168.0.190","raspberrypi.local","0.0.0.0","127.0.0.1"]
+ALLOWED_HOSTS = ["localhost", "192.168.0.190",
+                 "raspberrypi.local", "0.0.0.0", "127.0.0.1"]
 
 
 # Application definition
@@ -38,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_cleanup',
 ]
 
 MIDDLEWARE = [
