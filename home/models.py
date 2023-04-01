@@ -31,13 +31,13 @@ class Services(models.Model):
         return str(self.servicename)
 
 
-class AppOrder(models.Model):
-    id = models.BigAutoField(primary_key=True)
-    username = models.CharField(max_length=255, unique=True)
-    apporder = models.CharField(max_length=255)
+# class AppOrder(models.Model):
+#     id = models.BigAutoField(primary_key=True)
+#     username = models.CharField(max_length=255, unique=True)
+#     apporder = models.CharField(max_length=255)
 
-    def __str__(self):
-        return str(self.username)
+#     def __str__(self):
+#         return str(self.username)
 
 
 class SystemVar(models.Model):

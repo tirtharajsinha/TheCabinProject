@@ -8,7 +8,9 @@ from django.contrib import messages
 from django.http import JsonResponse
 from .utils import *
 import os
-from .models import Apps, AppOrder, SystemVar, Services
+from .models import Apps, SystemVar, Services
+from django.contrib.auth import authenticate, login, logout
+
 
 # superuser username-cabin /  passward-cabin
 # Create your views here.
@@ -16,22 +18,43 @@ from .models import Apps, AppOrder, SystemVar, Services
 
 
 def index(request):
+    appview = SystemVar.objects.get(var="appview")
+    apporder = SystemVar.objects.get(var="apporder")
+    apporderlist = apporder.value.strip().split(",")
+    removedApps = []
+    apps = Apps.objects.all()
+    appdict = {}
+    applist = []
+    for app in apps:
+        appdict[app.id] = app
+
+    for appid in apporderlist:
+        if int(appid) in appdict.keys():
+            applist.append(appdict.pop(int(appid)))
+        else:
+            removedApps.append(int(appid))
+
+    for appid in appdict.keys():
+        applist.append(appdict[int(appid)])
+
+    if len(removedApps) > 0:
+        refreshAppOrder(removedApps)
+    # print(applist)
+    # print(apporderlist)
+
     context = {
-        "theme": getTheme()
+        "theme": getTheme(),
+        "appview": appview.value,
+        "apps": applist
     }
     return render(request, "index.html", context=context)
 
 
-def manageapp(request):
-    context = {
-        "theme": getTheme()
-    }
-    return render(request, "manageapp.html", context=context)
-
-
 def appearance(request):
+    appview = SystemVar.objects.get(var="appview")
     context = {
-        "theme": getTheme()
+        "theme": getTheme(),
+        "appview": appview.value
     }
     return render(request, "appearance.html", context=context)
 
@@ -45,8 +68,13 @@ def sysmonitor(request):
 
 
 def addapp(request):
+    print(request.user.is_authenticated)
+    if not request.user.is_authenticated:
+        context = {"messages": "Please Sign in to add a new app."}
+        return redirect("/login?next=/addapp")
+
     context = {
-        "theme": getTheme(),
+        "theme": getTheme()
     }
     if request.method == "POST":
         username = request.user.username
@@ -54,7 +82,7 @@ def addapp(request):
         name = request.POST.get("name")
         description = request.POST.get("sub")
         url = request.POST.get("url")
-        checked = request.POST.get("pinned") == "on"
+        checked = request.POST.get("pinned") == "ON"
 
         print(name, url, checked, username)
         # user = Upload(image=img, orgimage=orgimage,
@@ -65,9 +93,41 @@ def addapp(request):
         return render(request, "addapp.html", context=context)
     return render(request, "addapp.html", context=context)
 
-###############
-####  APIs ####
-###############
+
+def logoutuser(request):
+    logout(request)
+    return redirect("/")
+
+
+def loginuser(request):
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        next = request.POST.get('next')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            print("Login successful.")
+            if next == "":
+                next = "/"
+            return redirect(next)
+        else:
+            context = {"messages": "Username or password is not correct"}
+            print("Login Not successful.")
+            if next != "":
+                context["next"] = next
+            return render(request, "login.html", context=context)
+    next = request.GET.get("next")
+    if next == "/addapp":
+        context = {"messages": "Please Sign in to add a new app."}
+    if next:
+        context["next"] = next
+        return render(request, "login.html", context=context)
+    return render(request, "login.html")
+
+    ###############
+    ####  APIs ####
+    ###############
 
 
 def check(request):
@@ -121,6 +181,7 @@ def getTheme():
 def saveTheme(request):
     theme = request.GET.get("theme")
     accentcolor = request.GET.get("accentcolor")
+    appview = request.GET.get("appview")
 
     if theme:
         dbtheme = SystemVar.objects.get(var="theme")
@@ -131,7 +192,41 @@ def saveTheme(request):
         dbaccentcolor = SystemVar.objects.get(var="accentcolor")
         dbaccentcolor.value = accentcolor
         dbaccentcolor.save()
+    if appview:
+        dbappview = SystemVar.objects.get(var="appview")
+        dbappview.value = appview
+        dbappview.save()
 
-        print(accentcolor)
+    return JsonResponse({"saved": True})
 
+
+def saveAppOrder(request):
+    apporder = request.GET.get("apporder")
+    apporderlist = apporder.strip().split(",")
+    print(apporderlist)
+    dbapporder = SystemVar.objects.get(var="apporder")
+    dbapporder.value = apporder
+    dbapporder.save()
+
+    return JsonResponse({"saved": True})
+
+
+def refreshAppOrder(removedapps):
+    print(removedapps)
+    dbapporder = SystemVar.objects.get(var="apporder")
+    apporder = dbapporder.value.strip().split(",")
+    newapporder = [p for p in apporder if int(p) not in removedapps]
+    dbapporder.value = ",".join(newapporder)
+    dbapporder.save()
+    print(removedapps, newapporder)
+
+
+def updateAppPinnedState(request):
+    appid = request.GET.get("appid")
+    app = Apps.objects.get(id=appid)
+
+    app.pinned = not app.pinned
+    app.save()
+
+    print(appid, app.pinned)
     return JsonResponse({"saved": True})

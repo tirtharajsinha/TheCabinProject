@@ -44,18 +44,19 @@
         <div class="inputbox">
             <p class="ilabel">Do you want to Pin your APP? <span style="color:red;">*</span></p>
 
-            <div class="btnview">
-                <div class="pinned viewbtn activeView" data-pinned=1 onclick="changevis(this)">
-                    <i class="fas fa-eye"></i>
-                    Pinned
+            <label for="pinned">
+                <div class="btnview">
+                    <div class="pinned viewbtn activeView" data-pinned=1 onclick="changevis(this)">
+                        <i class="fas fa-eye"></i>
+                        Pinned
+                    </div>
+                    <div class="unpinned viewbtn" data-pinned=0 onclick="changevis(this)">
+                        <i class="fas fa-eye-slash"> </i>
+                        Unpinned
+                    </div>
                 </div>
-                <div class="unpinned viewbtn" data-pinned=0 onclick="changevis(this)">
-                    <i class="fas fa-eye-slash"> </i>
-                    Unpinned
-                </div>
-            </div>
-            <input type="checkbox" style="display: none;" required id="pinned" name="pinned"
-                placeholder="http://IP-ADDRESS:PORT-NO" checked>
+            </label>
+            <input type="text" style="display: none;" required id="pinned" name="pinned" value="ON">
         </div>
         <div class="Notice"></div>
         <div class="save-btn" data-pinned=1 onclick="validateData()">
@@ -69,15 +70,15 @@
 
 
 <script>
-    curlivepage = "manageapps";
+    curlivepage = "lobby";
     function changevis(ele) {
         if (ele.dataset.pinned == 1) {
-            document.getElementById("pinned").checked = true;
+            document.getElementById("pinned").value = "ON";
             document.querySelector(".pinned").classList.add("activeView");
             document.querySelector(".unpinned").classList.remove("activeView");
         }
         else {
-            document.getElementById("pinned").checked = false;
+            document.getElementById("pinned").value = "OFF";
             document.querySelector(".unpinned").classList.add("activeView");
             document.querySelector(".pinned").classList.remove("activeView");
         }

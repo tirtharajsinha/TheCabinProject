@@ -5,7 +5,7 @@
 {% block title %}Appearance{% endblock %}
 
 {% block body %}
-<h2 class="pagetitle">Appearance : <span class="fulld">Make yourself at home</span></h2>
+<h2 class="pagetitle">Appearance<span class="fulld"> : Make yourself at home</span></h2>
 <h5 class="pagesubtitle">Pick you color, theme and apps view.</h5>
 <div class="accentColor">
     <p>Choose your accent color</p>
@@ -52,24 +52,17 @@
 </div>
 
 <div class="appView">
-    <p>Choose your App badge view(Wide Screen)</p>
+    <p>Choose your App badge view</p>
     <div class="btnview">
-        <div class="fullsize viewbtn activeView">Normal</div>
-        <div class="compact viewbtn">Compact</div>
-        <div class="scompact viewbtn">Super Compact</div>
-    </div>
-
-    <p>Choose your App badge view(Small Screen)</p>
-    <div class="btnview">
-        <div class="fullsize viewbtn">Fullsize</div>
-        <div class="compact viewbtn">Compact</div>
-        <div class="scompact viewbtn activeView">Super Compact</div>
+        <div class="fullsize viewbtn" data-view="normal" onclick="changeAppView(this)">Normal</div>
+        <div class="compact viewbtn" data-view="compact" onclick="changeAppView(this)">Compact</div>
     </div>
 
 </div>
 
 <script>
     let curlivepage = "appearance";
+    let appview = "{{appview}}"
     function changeAccentColor(drop) {
         let color = drop.dataset.color;
         let icon = `<i class="far fa-check"></i>`;
@@ -97,6 +90,32 @@
             }
         }
 
+    }
+
+    if (appview == "normal") {
+        document.querySelector(".fullsize").classList.add("activeView");
+    }
+    else {
+        document.querySelector(".compact").classList.add("activeView");
+    }
+
+    function changeAppView(ele) {
+        if (ele.dataset.view == "normal") {
+            document.querySelector(".fullsize").classList.add("activeView");
+            document.querySelector(".compact").classList.remove("activeView");
+            if (appview == "compact") {
+                $.get("/savetheme", { appview: "normal" });
+            }
+            appview = "normal";
+        }
+        else {
+            document.querySelector(".fullsize").classList.remove("activeView");
+            document.querySelector(".compact").classList.add("activeView");
+            if (appview == "normal") {
+                $.get("/savetheme", { appview: "compact" });
+            }
+            appview = "compact";
+        }
     }
 
 
@@ -153,6 +172,9 @@
             document.querySelector(".lightbox").classList.add("activeTheme");
         }
     })
+
+
+
 
 
 

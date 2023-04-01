@@ -11,42 +11,70 @@
     <div class="dateblock" id="dateblock"></div>
 </div>
 <div class="apps">
+
     <div id="imageListId">
-        <div id="imageNo1" class="listitemClass" data-id=1>
-            <div class="appBox">
-                <img src="/static/raspberrry_pi_logo.png" alt="" class="appLogo">
-                <div class="appTitle">RaspberryPi</div>
-                <div class="appLongTitle">A single board computer</div>
-            </div>
+        {% for app in apps %}
+
+        {% if app.pinned %}
+
+        <div id="displayapps{{app.id}}" class="listitemClass" data-id={{app.id}}>
+            <a href="{{app.url}}">
+                <div class="appBox">
+                    <img src="{{app.icon.url}}" alt="" class="appLogo">
+                    <div class="appTitle">{{app.appname}}</div>
+                    <div class="appLongTitle">{{app.description}}</div>
+                </div>
+            </a>
         </div>
-        <div id="imageNo1" class="listitemClass" data-id=2>
-            <div class="appBox">
-                <img src="/static/raspberrry_pi_logo.png" alt="" class="appLogo">
-                <div class="appTitle">RaspberryPi</div>
-                <div class="appLongTitle">A single board computer</div>
-            </div>
+
+        {% else %}
+
+        <div id="displayapps{{app.id}}" class="listitemClass unpinned" data-id={{app.id}}>
+            <a href="{{app.url}}">
+                <div class="appBox">
+                    <img src="{{app.icon.url}}" alt="" class="appLogo">
+                    <div class="appTitle">{{app.appname}}</div>
+                    <div class="appLongTitle">{{app.description}}</div>
+                </div>
+            </a>
         </div>
-        <div id="imageNo1" class="listitemClass" data-id=3>
-            <div class="appBox">
-                <img src="/static/raspberrry_pi_logo.png" alt="" class="appLogo">
-                <div class="appTitle">RaspberryPi</div>
-                <div class="appLongTitle">A single board computer</div>
-            </div>
-        </div>
-        <div id="imageNo1" class="listitemClass" data-id=4>
-            <div class="appBox">
-                <img src="/static/raspberrry_pi_logo.png" alt="" class="appLogo">
-                <div class="appTitle">RaspberryPi</div>
-                <div class="appLongTitle">A single board computer</div>
-            </div>
-        </div>
+
+        {% endif %}
+
+        {% endfor %}
     </div>
 
 </div>
 
+{% if appview == "compact" %}
+<script>
+    document.getElementById("imageListId").classList.add("compactList")
+    apps = document.getElementsByClassName("listitemClass");
+    for (let i = 0; i < apps.length; i++) {
+        apps[i].classList.add("compactCard");
+    }
+</script>
+{% else %}
+<script>
+    document.getElementById("imageListId").classList.add("noncompactList")
+
+</script>
+{% endif %}
+
+
+
 
 </div>
 
+<div class='saveNotiBox'>
+    <div class="msg">
+        App panel Order Changed. Do you want to save new order?
+        <div class="confbtns">
+            <div class="yesbtn" onclick="orderYes()">YES</div>
+            <div class="nobtn" onclick="orderNo()">NO</div>
+        </div>
+    </div>
+</div>
 
 
 
@@ -114,9 +142,151 @@
 
 
         document.getElementById("timeblock").innerHTML = `${hrs}:${min} ${ampm}`;
-        console.log(hrs + ":" + min)
+        // console.log(hrs + ":" + min)
         document.getElementById("dateblock").innerHTML = `${weekday[dd]}, ${date} ${month[mm]}, ${a.getFullYear()}`;
     }
+
+
+    function togglePinApp(app) {
+        app.querySelector("i").classList.toggle("fa-eye");
+        app.querySelector("i").classList.toggle("fa-eye-slash");
+        let id = app.dataset.id;
+        if (app.dataset.pin == 1) {
+            app.dataset.pin = 0;
+            findId(id).classList.remove("pinnedapp");
+        }
+        else {
+            app.dataset.pin = 1;
+            findId(id).classList.add("pinnedapp");
+        }
+    }
+
+
+    function findId(id) {
+        let all = document.querySelectorAll('.listitemClass');
+        for (let i = 0; i < all.length; i++) {
+            // console.log(all[i].dataset.id + "" + id);
+            if (all[i].dataset.id == id) {
+                return all[i];
+            }
+        }
+    }
+
+
+    $(function () {
+        $("#imageListId").sortable({
+            update: function (event, ui) {
+                NotifyChange();
+            } //end update       
+        });
+    });
+
+    function NotifyChange() {
+        document.querySelector(".saveNotiBox").style.right = "10px";
+    }
+
+
+    function orderYes() {
+        document.querySelector(".saveNotiBox").style.right = "-300px";
+        getIdsOfImages();
+    }
+
+    function orderNo() {
+        document.querySelector(".saveNotiBox").style.right = "-300px";
+    }
+
+    function getIdsOfImages() {
+        var values = [];
+        $('.listitemClass').each(function (index) {
+            values.push($(this).data("id"));
+        });
+        console.log(values);
+        let orderstr = values.join();
+        $.get("/saveapporder", { apporder: orderstr });
+    }
+
+</script>
+{% endblock %}
+
+
+{% block overlay %}
+
+<div class="unpinnedAppOverlay">
+    <h2 class="pagetitle">Manage your apps</h2>
+    <div id="removeappmanager"><i class="fal fa-times"></i></div>
+    <div id="unimageListId">
+        {% for app in apps %}
+        {% if app.pinned %}
+
+        <div id="allapps{{app.id}}" class="unlistitemClass pinnedapp" data-id={{app.id}}>
+            <img src="{{app.icon.url}}" alt="" class="appLogo">
+            <div class="appTitle">{{app.appname}}</div>
+            <div class="actionBox">
+                <div class="visibility" onclick="togglePinApp(this)" data-pin=1 data-id={{app.id}}>
+                    <i class="far fa-eye"></i>
+                </div>
+                <div class="edit" onclick="editApp()">
+                    <i class="fal fa-pen"></i>
+                </div>
+            </div>
+
+        </div>
+
+        {% else %}
+
+        <div id="allapps{{app.id}}" class="unlistitemClass" data-id={{app.id}}>
+            <img src="{{app.icon.url}}" alt="" class="appLogo">
+            <div class="appTitle">{{app.appname}}</div>
+            <div class="actionBox">
+                <div class="visibility" onclick="togglePinApp(this)" data-pin=0 data-id={{app.id}}>
+                    <i class="far fa-eye-slash"></i>
+                </div>
+                <div class="edit" onclick="editApp()">
+                    <i class="fal fa-pen"></i>
+                </div>
+            </div>
+
+        </div>
+
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+    function togglePinApp(app) {
+        app.querySelector("i").classList.toggle("fa-eye");
+        app.querySelector("i").classList.toggle("fa-eye-slash");
+        let id = app.dataset.id;
+        $.get("/appstatuschange", { appid: id });
+        if (app.dataset.pin == 1) {
+            app.dataset.pin = 0;
+            document.getElementById("allapps" + id).classList.remove("pinnedapp");
+            document.getElementById("displayapps" + id).classList.add("unpinned")
+        }
+        else {
+            app.dataset.pin = 1;
+            document.getElementById("allapps" + id).classList.add("pinnedapp");
+            document.getElementById("displayapps" + id).classList.remove("unpinned")
+        }
+    }
+
+    document.getElementById("appmanager").addEventListener("click", () => {
+        document.querySelector(".unpinnedAppOverlay").style.display = "flex";
+    })
+
+    document.getElementById("removeappmanager").addEventListener("click", () => {
+        document.querySelector(".unpinnedAppOverlay").style.display = "none";
+    })
+
+    document.querySelector(".unpinnedAppOverlay").addEventListener("click", (e) => {
+        // console.log(e.target.classList);
+        if (e.target.classList.contains("unpinnedAppOverlay")) {
+            document.querySelector(".unpinnedAppOverlay").style.display = "none";
+        }
+
+    })
+
 
 </script>
 {% endblock %}

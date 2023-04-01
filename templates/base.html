@@ -63,7 +63,9 @@
             <ul class="highlight-block">
                 <h3>CABIN CONTROL</h3>
                 <a href="/appearance" class="appearance"><i class="far fa-palette"></i><span>Appearance</span></a>
-                <a href="/manage" class="manageapps"><i class="far fa-gamepad-alt"></i><span>Manage Apps</span></a>
+                {% if apps %}
+                <a class="manage" id="appmanager"><i class="fal fa-cog"></i><span>Manage Apps</span></a>
+                {% endif %}
                 <a href="" class="security"><i class="fal fa-shield"></i><span>Security</span></a>
                 <a href="" class="notes"><i class="fas fa-clipboard"></i><span>Notes</span></a>
             </ul>
@@ -84,23 +86,30 @@
                     <a class="pageh fulld data-hostname">Hostname on Os name</a>
                 </div>
                 <div class="topbarbox">
+                    <span><i class="fal fa-plus adminicon" id="addapp"><span class="topbarspan">ADD
+                                APP</span></i></span>
+                    <div class="space"></div>
+                    <span><i class="fas fa-bolt adminicon"><span class="topbarspan fulld">Admin</span><span
+                                class="topbarspan fulld">Access</span></i></span>
                     <div class="space fulld"></div>
-                    <i class="fas fa-bolt adminicon"><span class="topbarspan">Admin</span><span
-                            class="topbarspan fulld">Access</span></i>
-                    <div class="space fulld"></div>
-                    <i class="fal fa-bell"></i>
+                    <span class="fulld"><i class="fal fa-bell"></i></span>
+
                     <div class="space"></div>
                     <i class="fal fa-moon" id="theme-toggle"></i>
                     <div class="sep"></div>
+                    {% if user.is_authenticated %}
                     <i class="fab fa-raspberry-pi" id="control-center-btn"><span
-                            class="fulld username data-username">username</span></i>
+                            class="fulld username data-username">{{user.username}}</span></i>
+                    {% else %}
+                    <i class="fal fa-sign-in adminicon" onclick="login()"><span class="topbarspan">Sign In</span></i>
+                    {% endif %}
+
                 </div>
             </div>
             <div class="control-center supercard">
                 <img src="static/raspberrry_pi_logo.png" alt="">
-                <h5><span class="data-username">username</span>@<span class="data-hostname">hostname</span></h5>
                 <div class="settings">
-                    <div class="st-box" id="st-btn1">
+                    <div class="st-box" id="st-btn1" onclick="logout()">
                         <div class="st-btn">
                             <i class="fal fa-sign-out"></i>
                         </div>
@@ -143,6 +152,8 @@
             </div>
         </div>
     </div>
+
+    {% block overlay %}{% endblock %}
     <div class="reconnect">
         <div class="reconbox">
             <p class="reconmsg">Server Disconnected</p>
@@ -188,6 +199,7 @@
 
 
 
+
     <script>
         $(window).on('load', function () {
             setTimeout(removeLoader, 0); //wait for page load PLUS two seconds.
@@ -200,6 +212,20 @@
         }
 
         document.querySelector("." + curlivepage).classList.add("active");
+
+        function login() {
+            let next = "{{ request.path }}";
+            window.location.href = `/login?next=${next}`;
+        }
+
+        function logout() {
+            window.location.href = `/logout`;
+        }
+
+        document.getElementById("addapp").addEventListener("click", (e) => {
+            let next = "{{ request.path }}";
+            window.location.href = `/addapp?next=${next}`;
+        })
 
     </script>
     <script src="static/fontawasome5.15-pro.js"></script>

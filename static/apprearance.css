@@ -231,6 +231,12 @@
   cursor: pointer;
 }
 
+@media only screen and (max-width: 500px) {
+  .appView .btnview {
+    padding-left: 0px;
+  }
+}
+
 .appView .btnview .viewbtn:not(.activeView):hover {
   color: var(--primary-text-color);
   border: 3px solid var(--primary-text-color);

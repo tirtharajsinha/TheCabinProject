@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.0.17/dist/js/splide.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.0.17/dist/css/splide.min.css">
+  <link rel="stylesheet" href="/static/login.css">
+  <title>Cabin Login</title>
+</head>
+
+<body>
+  <div class="container">
+    <div class="branding">
+      <img src="static/favicon.png" alt="">
+      <span>@TheCabin</span>
+    </div>
+    <div class="sidebanner halfdiv">
+
+      <div class="banner">
+        <section class="splide" aria-label="Splide Basic HTML Example">
+          <div class="splide__track">
+            <ul class="splide__list">
+              <li class="splide__slide si1"><img src="static/auth/illustration1.png" alt=""></li>
+              <li class="splide__slide"><img src="static/auth/illustration2.png" alt=""></li>
+              <li class="splide__slide"><img src="static/auth/illustration3.png" alt=""></li>
+            </ul>
+            <div class="splide__progress">
+              <div class="splide__progress__bar">
+              </div>
+            </div>
+
+            <div class="splide_controls">
+              <button class="splide__toggle" type="button">
+                <span class="splide__toggle__play"><i class="fad fa-play"></i></span>
+                <span class="splide__toggle__pause"><i class="fad fa-pause"></i></span>
+              </button>
+            </div>
+
+          </div>
+
+
+        </section>
+      </div>
+    </div>
+
+    <form action="" method="post" class="form halfdiv">
+      {% csrf_token %}
+      <div class="formbox">
+        <h3>Sign in to @TheCabin</h3>
+        <div class="inpbox">
+          <i class="fal fa-at"></i>
+          <input type="text" name="username" placeholder="Username" autocomplete="off" required>
+        </div>
+        <div class="inpbox">
+          <i class="fal fa-lock"></i>
+          <input type="password" name="password" placeholder="Password" autocomplete="off" required>
+        </div>
+
+        <div class="input-group">
+          <input type="checkbox" id="checkbox" hidden />
+          <label for="checkbox" class="checkbox"><span class="icon"></span><span class="text">Remember me</span></label>
+        </div>
+
+        <div class="inpbox1 btnbox">
+
+          <input type="hidden" name="next" value="{{ next }}" />
+          <input class="button" type="submit" value="SIGN IN">
+        </div>
+
+        <div class="inpbox centered" onclick="gotopage('/register')">
+          <img src="static/signup.png" alt="">
+          <input class="gbutton" value="Need a Account? Sign Up" disabled>
+        </div>
+        <div class="inpbox centered">
+          <img src="/static/google.png" alt="">
+          <input class="gbutton" value="Sign In with Google" disabled>
+        </div>
+      </div>
+
+
+      <!-- <div id="msg">
+        <p id="alert">hello world</p>
+        <div class="closemsg" onclick="close_msg()"><i class="fal fa-trash"></i></div>
+      </div>
+    </form> -->
+      {% if messages %}
+      <div id="msg">
+        <p id="alert">{{ messages }}</p>
+        <div class="closemsg" onclick="close_msg()"><i class="fal fa-trash"></i></div>
+      </div>
+      {% endif %}
+
+
+  </div>
+  <script src="static/fontawasome5.15-pro.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var splide = new Splide(".splide", {
+        type: "loop",
+        autoplay: "play",
+        perPage: 1,
+        interval: 10000,
+      });
+      splide.on("autoplay:playing", function (rate) {
+        // console.log(rate); // 0-1
+      });
+
+      splide.mount();
+    });
+
+    document.querySelector(".splide__list").addEventListener("click", (e) => {
+      document.querySelector(".splide__toggle").click();
+    });
+
+    if (window.history.replaceState) {
+      window.history.replaceState(null, null, window.location.href);
+    }
+
+    function close_msg() {
+      document.querySelector("#alert").classList.add("popmsg");
+      setTimeout(() => {
+        document.getElementById("msg").style.animation = "none";
+        document.getElementById("msg").style.transform = "translateY(300px)";
+      }, 500);
+    }
+
+    function gotopage(url) {
+      window.location.href = url;
+    }
+  </script>
+</body>
+
+</html>
