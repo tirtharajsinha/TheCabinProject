@@ -12,7 +12,7 @@ from .models import Apps, SystemVar, Services
 from django.contrib.auth import authenticate, login, logout
 
 
-# superuser username-cabin /  passward-cabin
+# superuser username- tirtharajsinha /  passward-tirtha098
 # Create your views here.
 # Create your views here.
 
