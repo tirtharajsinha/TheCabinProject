@@ -10,6 +10,7 @@ from .utils import *
 import os
 from .models import Apps, SystemVar, Services
 from django.contrib.auth import authenticate, login, logout
+import requests
 
 
 # superuser username- tirtharajsinha /  passward-tirtha098
@@ -92,6 +93,44 @@ def addapp(request):
         app.save()
         return render(request, "addapp.html", context=context)
     return render(request, "addapp.html", context=context)
+
+
+def editapp(request, id):
+    print(request.user.is_authenticated)
+    if not request.user.is_authenticated:
+        context = {"messages": "Please Sign in to update a app."}
+        return redirect("/login?next=/editapp/"+id)
+
+    context = {
+        "theme": getTheme()
+    }
+
+    app = Apps.objects.get(id=id)
+
+    if request.method == "POST":
+        if not app:
+            return redirect("/")
+        username = request.user.username
+        icon = request.FILES
+        print(len(icon))
+        if len(icon) == 1:
+            icon = icon["icon"]
+            app.icon = icon
+        name = request.POST.get("name")
+        description = request.POST.get("sub")
+        url = request.POST.get("url")
+        checked = request.POST.get("pinned") == "ON"
+
+        app.appname = name
+        app.description = description
+        app.url = url
+        app.pinned = checked
+
+        print(icon, name, url, checked, username)
+        app.save()
+        return redirect("/")
+    context["app"] = app
+    return render(request, "editapp.html", context=context)
 
 
 def logoutuser(request):
@@ -230,3 +269,12 @@ def updateAppPinnedState(request):
 
     print(appid, app.pinned)
     return JsonResponse({"saved": True})
+
+
+def checkurllive(request):
+    url = request.GET.get("url")
+    try:
+        res = requests.get(url)
+        return JsonResponse({"live": True})
+    except:
+        return JsonResponse({"live": False})

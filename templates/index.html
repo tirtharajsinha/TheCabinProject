@@ -1,14 +1,20 @@
 {% extends "base.html" %}
 {% block style %}
-<link rel="stylesheet" href="static/index.css">
+<link rel="stylesheet" href="/static/index.css">
 {% endblock %}
 {% block title %}Lobby{% endblock %}
 
 {% block body %}
 
-<div class="datetimeblock">
-    <div class="timeblock" id="timeblock"></div>
-    <div class="dateblock" id="dateblock"></div>
+<div class="indextopbar">
+    <div class="datetimeblock">
+        <div class="timeblock" id="timeblock"></div>
+        <div class="dateblock" id="dateblock"></div>
+    </div>
+    <div class="manageappbox">
+        <div class="manageappbtn" id="appmanager1"><i class="far fa-cog"></i> Manage APPs</div>
+    </div>
+
 </div>
 <div class="apps">
 
@@ -17,26 +23,28 @@
 
         {% if app.pinned %}
 
-        <div id="displayapps{{app.id}}" class="listitemClass" data-id={{app.id}}>
-            <a href="{{app.url}}">
+        <div id="displayapps{{app.id}}" class="listitemClass" data-id={{app.id}} data-url="{{app.url}}">
+            <a href="{{app.url}}" target="_blank">
                 <div class="appBox">
                     <img src="{{app.icon.url}}" alt="" class="appLogo">
                     <div class="appTitle">{{app.appname}}</div>
                     <div class="appLongTitle">{{app.description}}</div>
                 </div>
             </a>
+            <div class="livestatus"></div>
         </div>
 
         {% else %}
 
-        <div id="displayapps{{app.id}}" class="listitemClass unpinned" data-id={{app.id}}>
-            <a href="{{app.url}}">
+        <div id="displayapps{{app.id}}" class="listitemClass unpinned" data-id={{app.id}} data-url="{{app.url}}">
+            <a href="{{app.url}}" target="_blank">
                 <div class="appBox">
                     <img src="{{app.icon.url}}" alt="" class="appLogo">
                     <div class="appTitle">{{app.appname}}</div>
                     <div class="appLongTitle">{{app.description}}</div>
                 </div>
             </a>
+            <div class="livestatus"></div>
         </div>
 
         {% endif %}
@@ -64,7 +72,7 @@
 
 
 
-</div>
+
 
 <div class='saveNotiBox'>
     <div class="msg">
@@ -75,6 +83,8 @@
         </div>
     </div>
 </div>
+
+
 
 
 
@@ -205,6 +215,23 @@
         $.get("/saveapporder", { apporder: orderstr });
     }
 
+    let allloadedapps = document.getElementsByClassName("listitemClass")
+    for (let i = 0; i < allloadedapps.length; i++) {
+        let url = allloadedapps[i].dataset.url;
+        $.get("/checkurllive", { url: url })
+            .done(function (data) {
+                if (!data.live) {
+                    allloadedapps[i].querySelector(".livestatus").style.display = "block";
+                    allloadedapps[i].querySelector(".livestatus").style.background = "tomato";
+                }
+                else {
+                    allloadedapps[i].querySelector(".livestatus").style.display = "block";
+                }
+                console.log(data);
+            });
+    }
+
+
 </script>
 {% endblock %}
 
@@ -225,7 +252,7 @@
                 <div class="visibility" onclick="togglePinApp(this)" data-pin=1 data-id={{app.id}}>
                     <i class="far fa-eye"></i>
                 </div>
-                <div class="edit" onclick="editApp()">
+                <div class="edit" onclick="editApp(this)" data-id="{{app.id}}">
                     <i class="fal fa-pen"></i>
                 </div>
             </div>
@@ -241,7 +268,7 @@
                 <div class="visibility" onclick="togglePinApp(this)" data-pin=0 data-id={{app.id}}>
                     <i class="far fa-eye-slash"></i>
                 </div>
-                <div class="edit" onclick="editApp()">
+                <div class="edit" onclick="editApp(this)" data-id="{{app.id}}">
                     <i class="fal fa-pen"></i>
                 </div>
             </div>
@@ -271,7 +298,16 @@
         }
     }
 
+    function editApp(ele) {
+        let id = ele.dataset.id;
+        window.location.href = "/editapp/" + id;
+    }
+
     document.getElementById("appmanager").addEventListener("click", () => {
+        document.querySelector(".unpinnedAppOverlay").style.display = "flex";
+    })
+
+    document.getElementById("appmanager1").addEventListener("click", () => {
         document.querySelector(".unpinnedAppOverlay").style.display = "flex";
     })
 

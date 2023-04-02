@@ -1,33 +1,34 @@
 {% extends "base.html" %}
 {% block style %}
-<link rel="stylesheet" href="static/addapp.css">
+<link rel="stylesheet" href="/static/addapp.css">
 {% endblock %}
-{% block title %}ADD APP{% endblock %}
+{% block title %}EDIT APP{% endblock %}
 
 {% block body %}
 
-<h3 class="pagetitle">ADD NEW APP</h3>
+<h3 class="pagetitle">EDIT {{app.appname}}</h3>
 <div class="AppBox">
 
-    <form action="/addapp" method="post" enctype="multipart/form-data">
+    <form action="/editapp/{{app.id}}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="imageBox">
             <label for="icon"><i class="far fa-pen-fancy"></i></label>
-            <img src="/static/dummy_app_icon.png" alt="" id="previewicon">
+            <img src="{{app.icon.url}}" alt="" id="previewicon">
             <input type="file" id="icon" name="icon" style="display:none;">
         </div>
 
         <div class="inputbox">
             <p class="ilabel">What's your WEB-APP's name? <span style="color:red;">*</span></p>
             <label for="name">
-                <input type="text" required autocomplete="off" id="name" name="name" placeholder="nextcloud">
+                <input type="text" value="{{app.appname}}" required autocomplete="off" id="name" name="name"
+                    placeholder="nextcloud">
             </label>
         </div>
 
         <div class="inputbox">
             <p class="ilabel">Add a short description of your app.<span style="color:red;">*</span></p>
             <label for="sub">
-                <input type="text" required autocomplete="off" id="sub" name="sub"
+                <input type="text" value="{{app.description}}" required autocomplete="off" id="sub" name="sub"
                     placeholder="A client-server software.">
                 Words : <span id="subcount">0</span>/5
             </label>
@@ -36,7 +37,7 @@
         <div class="inputbox">
             <p class="ilabel">Put your WEB-APP's URL. <span style="color:red;">*</span></p>
             <label for="url">
-                <input type="url" required autocomplete="off" id="url" name="url"
+                <input type="url" value="{{app.url}}" required autocomplete="off" id="url" name="url"
                     placeholder="http://IP-ADDRESS:PORT-NO">
             </label>
         </div>
@@ -46,6 +47,7 @@
 
             <label for="pinned">
                 <div class="btnview">
+                    {% if app.pinned %}
                     <div class="pinned viewbtn activeView" data-pinned=1 onclick="changevis(this)">
                         <i class="fas fa-eye"></i>
                         Pinned
@@ -54,14 +56,30 @@
                         <i class="fas fa-eye-slash"> </i>
                         Unpinned
                     </div>
+
+                    {% else %}
+
+                    <div class="pinned viewbtn" data-pinned=1 onclick="changevis(this)">
+                        <i class="fas fa-eye"></i>
+                        Pinned
+                    </div>
+                    <div class="unpinned viewbtn activeView" data-pinned=0 onclick="changevis(this)">
+                        <i class="fas fa-eye-slash"> </i>
+                        Unpinned
+                    </div>
+                    {% endif %}
                 </div>
             </label>
+            {% if app.pinned %}
             <input type="text" style="display: none;" required id="pinned" name="pinned" value="ON">
+            {% else %}
+            <input type="text" style="display: none;" required id="pinned" name="pinned" value="OFF">
+            {% endif %}
         </div>
         <div class="Notice"></div>
         <div class="save-btn" data-pinned=1 onclick="validateData()">
-
-            <span><i class="fal fa-layer-plus"> </i> ADD APP</span>
+            <i class="fal fa-layer-plus"> </i>
+            UPDATE APP
         </div>
 
         <button type="submit" hidden id="submit"></button>
@@ -98,10 +116,10 @@
         let url = document.getElementById("url");
         let sub = document.getElementById("sub");
         document.querySelector(".Notice").innerHTML = "";
-        if (image.value == "") {
-            issu++;
-            document.querySelector(".Notice").innerHTML += `<div>Please Add a icon for your App.</div>`
-        }
+        // if (image.value == "") {
+        //     issu++;
+        //     document.querySelector(".Notice").innerHTML += `<div>Please Add a icon for your App.</div>`
+        // }
         if (name.value == "") {
             issu++;
             document.querySelector(".Notice").innerHTML += `<div>Please Add Name of your App.</div>`
