@@ -157,9 +157,11 @@ def loginuser(request):
                 context["next"] = next
             return render(request, "login.html", context=context)
     next = request.GET.get("next")
-    if next == "/addapp":
-        context = {"messages": "Please Sign in to add a new app."}
+    context = {}
+
     if next:
+        if next == "/addapp":
+            context["message"] = "Please Sign in to add a new app."
         context["next"] = next
         return render(request, "login.html", context=context)
     return render(request, "login.html")
