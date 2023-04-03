@@ -1,0 +1,12 @@
+[Unit]
+Description=A server application dashboard
+After=network.target cabin.socket
+Requires=cabin.socket
+
+[Service]
+Type=simple
+ExecStart=sudo -E python3 /home/tirthapi/Developer/TheCabinProject/manage.py runserver 0.0.0.0:80
+User=tirthapi
+
+[Install]
+WantedBy=default.target
