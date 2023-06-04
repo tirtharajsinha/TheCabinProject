@@ -14,7 +14,7 @@ class Apps(models.Model):
     appname = models.CharField(max_length=255)
     description = models.CharField(max_length=255, default="")
     username = models.CharField(max_length=255)
-    icon = models.ImageField(upload_to="appicon")
+    icon = models.ImageField(upload_to="AddedAppIcons")
     url = models.CharField(max_length=255)
     pinned = models.BooleanField(default=True)
 
