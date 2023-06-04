@@ -108,14 +108,21 @@ document.querySelector(".close-nav-btn").addEventListener("click", (e) => {
 
 let cc_state = false;
 
-document.querySelector("#control-center-btn").addEventListener("click", (e) => {
-    document
-        .querySelector("#control-center-btn")
-        .classList.toggle("control-c-btn");
-    document.querySelector(".control-center").classList.toggle("cc-open");
-    console.log("cc");
-    cc_state = true;
-});
+try {
+    document.querySelector("#control-center-btn").addEventListener("click", (e) => {
+        document
+            .querySelector("#control-center-btn")
+            .classList.toggle("control-c-btn");
+        document.querySelector(".control-center").classList.toggle("cc-open");
+        console.log("cc");
+        cc_state = true;
+    });
+
+} catch (error) {
+
+}
+
+
 
 $(document).on("click", function (e) {
     var container = document.querySelector(".control-center");
